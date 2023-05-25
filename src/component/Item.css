@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@300&family=Zen+Maru+Gothic&display=swap');
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+.box{
+    border: 1px solid gray; 
+    width: 100px;
+    height: 100px;
+    display: table;
+}
+
+
+
+
+.box :hover{
+    border: 2px solid black;
+    animation: spin 1s ease-in-out 100ms 1 normal none running
+}
+
+.box-title{
+    display: table-cell;
+    vertical-align: middle;
+    font-family: 'M PLUS 1', sans-serif;
+    font-size: 18px;
+}
+
+.box-title :hover{
+    border: initial;
+    animation: initial;
+}
