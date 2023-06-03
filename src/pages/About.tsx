@@ -3,17 +3,16 @@ import { Container,Row,Col } from "react-bootstrap"
 import Item from "../component/Item"
 import { IconContext } from "react-icons";
 import { FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const About = () => {
     return (
         <div className='content mx-auto d-flex align-items-center' id="about">
 
         <Container className='justify-content-md-center'>
-          <Row className='text-center'>
-            <h1>NapoliN's Lab</h1>
+          <Row className='text-center my-3'>
+            <h1 className="my-5">NapoliN's Lab</h1>
           </Row>
-          <Row className='item-list m-auto my-5'>
+          <Row className='item-list mx-auto my-3'>
             <Col className='mx-auto'>
               <Item 
                 title='ArtWorks' 
@@ -31,7 +30,7 @@ const About = () => {
               href="#articles"/>
             </Col>
           </Row>
-          <Row>
+          <Row className="my-3">
             <div className='px-auto'>
               <h2 className="my-4">Profile</h2>
               <div>
@@ -42,7 +41,7 @@ const About = () => {
               </div>
             </div>
           </Row>
-          <Row>
+          <Row className="my-3">
             <Col>
             <a href="https://github.com/NapoliN" className="discolor-href">
               <IconContext.Provider value={{size: "5em"}}>
