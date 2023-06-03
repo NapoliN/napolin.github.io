@@ -1,5 +1,3 @@
-import './ArtWorks.css'
-
 import { Container,Row,Col } from "react-bootstrap"
 import ArtCard from "../component/ArtCard"
 
@@ -12,7 +10,7 @@ import ArtRapunzel from "../assets/artwork/rapunzel.gif"
 
 const ArtWorks = () => {
     return (
-        <Container className='content-artwork my-5' id="artworks">
+        <Container className='content my-5' id="artworks">
         <Row>
           <h1>Artworks</h1>
         </Row>

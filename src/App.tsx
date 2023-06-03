@@ -3,6 +3,7 @@ import './App.css'
 import About from './pages/About';
 
 import ArtWorks from './pages/ArtWorks';
+import Articles from './pages/Articles';
 import Works from './pages/Works';
 
 
@@ -13,6 +14,7 @@ const App = () => {
       <About />
       <ArtWorks/>
       <Works />
+      <Articles />
     </div>
   )
 }

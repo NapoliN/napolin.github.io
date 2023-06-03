@@ -30,12 +30,12 @@ const About = () => {
           </Row>
           <Row>
             <div className='px-auto'>
-              <h2>Profile</h2>
-              <div className="profile">
-                <li><b>所属</b>: 東京工業大学 情報工学系 修士1年</li>
-                <li><b>サークル</b>: デジタル創作同好会 traP</li>
-                <li><b>研究分野</b>: プログラム解析、抽象解釈、プログラム理論</li>
-                <li><b>趣味</b>: 旅行、ボードゲーム、ドット絵</li>
+              <h2 className="my-4">Profile</h2>
+              <div>
+                <p><b>所属</b>: 東京工業大学 情報工学系 修士1年</p>
+                <p><b>サークル</b>: デジタル創作同好会traP</p>
+                <p><b>研究分野</b>: プログラム解析、抽象解釈、プログラム理論</p>
+                <p><b>趣味</b>: 一人旅、ボードゲーム、ドット絵</p>
               </div>
             </div>
   
