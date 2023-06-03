@@ -14,10 +14,9 @@
     width: 100px;
     height: 100px;
     display: table;
+    background-color: whitesmoke;
+    z-index: 10;
 }
-
-
-
 
 .box :hover{
     border: 2px solid black;

@@ -1,12 +1,16 @@
 import "./Item.css"
 
 const Item = ({title} : {title: string}) => {
+
+    
     return (
-        <div className="box">
-            <div className="box-title">
-            <p>{title}</p>
+        <a href="#artwork">
+            <div className="box m-auto">
+                <div className="box-title">
+                <p>{title}</p>
+                </div>
             </div>
-        </div>
+        </a>
     )
 }
 

@@ -1,0 +1,23 @@
+.snow-ball {
+    background-color: whitesmoke;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    animation: fallingAnimation 3s infinite linear;
+    z-index: 3;
+}
+
+.snow-scene {
+    width: 100vh;
+    height: 100vh;
+    position: absolute;
+}
+
+@keyframes fallingAnimation {
+    0% {
+      transform: translateY(-50vh);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
