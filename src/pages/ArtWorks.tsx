@@ -14,7 +14,7 @@ const ArtWorks = () => {
     return (
         <Container className='content-artwork my-5' id="artworks">
         <Row>
-          <h1>Artwork</h1>
+          <h1>Artworks</h1>
         </Row>
         <Row className='d-flex align-items-center'>
           <Col>
@@ -31,6 +31,7 @@ const ArtWorks = () => {
             title='桜分水'
             createdAt='2023/5/5'
             artWidth={320}
+            description='素材撮影：新潟県 分水駅'
           />
           </Col>
           <Col>
@@ -39,7 +40,8 @@ const ArtWorks = () => {
             title='木漏れ日'
             createdAt='2023/5/23'
             artWidth={240}
-            description='部内イベント Graphic Chance!'
+            description='部内イベント Graphic Chance!
+                          素材撮影：大分県 宇佐神宮'
           />
           </Col>
           <Col>

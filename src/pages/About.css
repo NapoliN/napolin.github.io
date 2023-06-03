@@ -2,3 +2,7 @@
     max-width: 80% !important;
     height: 100vh;
   }
+
+.item-list {
+    max-width: 60% !important;
+}

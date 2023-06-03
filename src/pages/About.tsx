@@ -10,7 +10,7 @@ const About = () => {
           <Row className='text-center'>
             <h1>NapoliN's Lab</h1>
           </Row>
-          <Row className='justify-content-md-center my-5'>
+          <Row className='item-list m-auto my-5'>
             <Col className='mx-auto'>
               <Item 
                 title='ArtWorks' 
