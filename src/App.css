@@ -7,6 +7,15 @@
 }
 
 .content {
-  max-width: 80% !important;
   min-height: 100vh;
+}
+
+.app {
+  max-width: 80%;
+}
+
+.btn-to-about {
+  position: fixed;
+  bottom: 0;
+  right: 10%;
 }

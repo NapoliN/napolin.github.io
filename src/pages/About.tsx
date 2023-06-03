@@ -4,9 +4,9 @@ import Item from "../component/Item"
 
 const About = () => {
     return (
-        <div className='content mx-auto d-flex align-items-center'>
+        <div className='content mx-auto d-flex align-items-center' id="about">
 
-        <Container className='justify-content-md-center '>
+        <Container className='justify-content-md-center'>
           <Row className='text-center'>
             <h1>NapoliN's Lab</h1>
           </Row>
