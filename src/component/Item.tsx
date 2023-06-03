@@ -9,10 +9,10 @@ const Item = (info: IndexItem) => {
 
     
     return (
-        <a href={info.href}>
+        <a href={info.href} className="item-link">
             <div className="box m-auto">
                 <div className="box-title">
-                <p>{info.title}</p>
+                    <p className="m-auto">{info.title}</p>
                 </div>
             </div>
         </a>
