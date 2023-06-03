@@ -6,7 +6,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Item from './component/Item'
-import Snow from './component/Snow';
 import ArtCard from './component/ArtCard';
 
 import ArtDorothy from "./assets/artwork/dorothy.png"
