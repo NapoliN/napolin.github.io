@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -11,12 +10,12 @@
 }
 
 .app {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-@media screen and not(min-width: 576px) {
+@media screen and (min-width: 576px) {
   .app {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
 
