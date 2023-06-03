@@ -19,3 +19,11 @@
   bottom: 0;
   right: 10%;
 }
+
+.discolor-href {
+  color:black
+}
+
+.discolor-href:hover {
+  color:black
+}

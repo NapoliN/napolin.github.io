@@ -8,4 +8,7 @@ export default defineConfig({
     outDir: './docs',
     
   },
+  optimizeDeps: {
+    exclude: ["react-icons","react-router-dom"]
+  }
 })

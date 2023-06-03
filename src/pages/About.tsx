@@ -1,6 +1,9 @@
 import "./About.css"
 import { Container,Row,Col } from "react-bootstrap"
 import Item from "../component/Item"
+import { IconContext } from "react-icons";
+import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const About = () => {
     return (
@@ -38,7 +41,15 @@ const About = () => {
                 <p><b>趣味</b>: 一人旅、ボードゲーム、ドット絵</p>
               </div>
             </div>
-  
+          </Row>
+          <Row>
+            <Col>
+            <a href="https://github.com/NapoliN" className="discolor-href">
+              <IconContext.Provider value={{size: "5em"}}>
+              <FaGithub/>
+            </IconContext.Provider>
+            </a>
+            </Col>
           </Row>
         </Container>
         </div>
