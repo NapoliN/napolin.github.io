@@ -14,17 +14,3 @@
 .profile {
   text-align: left;
 }
-
-.content {
-  max-width: 80% !important;
-  height: 100vh;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
