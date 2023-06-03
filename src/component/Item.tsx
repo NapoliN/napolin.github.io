@@ -1,13 +1,18 @@
 import "./Item.css"
 
-const Item = ({title} : {title: string}) => {
+type IndexItem = {
+    title : string
+    href : string
+}
+
+const Item = (info: IndexItem) => {
 
     
     return (
-        <a href="#artwork">
+        <a href={info.href}>
             <div className="box m-auto">
                 <div className="box-title">
-                <p>{title}</p>
+                <p>{info.title}</p>
                 </div>
             </div>
         </a>

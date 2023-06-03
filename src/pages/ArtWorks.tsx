@@ -12,7 +12,7 @@ import ArtRapunzel from "../assets/artwork/rapunzel.gif"
 
 const ArtWorks = () => {
     return (
-        <Container className='content-artwork my-5' id="artwork">
+        <Container className='content-artwork my-5' id="artworks">
         <Row>
           <h1>Artwork</h1>
         </Row>

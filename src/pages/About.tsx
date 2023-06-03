@@ -12,13 +12,20 @@ const About = () => {
           </Row>
           <Row className='justify-content-md-center my-5'>
             <Col className='mx-auto'>
-              <Item title='ArtWorks' />
+              <Item 
+                title='ArtWorks' 
+                href="#artworks"
+                />
             </Col>
             <Col className='mx-auto'>
-              <Item title='Works' />
+              <Item 
+              title='Works'  
+            href="#works"
+            />
             </Col>
             <Col>
-              <Item title='Articles' />
+              <Item title='Articles' 
+              href="#articles"/>
             </Col>
           </Row>
           <Row>

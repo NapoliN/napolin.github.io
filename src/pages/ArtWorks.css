@@ -1,4 +1,4 @@
 .content-artwork {
-    max-width: 100% !important;
-    height: 100vh;
+    max-width: 80% !important;
+    min-height: 100vh;
   }
