@@ -13,19 +13,19 @@ const About = () => {
             <h1 className="my-5">NapoliN's Lab</h1>
           </Row>
           <Row className='item-list mx-auto my-3'>
-            <Col className='mx-auto'>
+            <Col xs={12} lg={4}>
               <Item 
                 title='ArtWorks' 
                 href="#artworks"
                 />
             </Col>
-            <Col className='mx-auto'>
+            <Col xs={12} lg={4}>
               <Item 
               title='Works'  
             href="#works"
             />
             </Col>
-            <Col>
+            <Col xs={12} lg={4}>
               <Item title='Articles' 
               href="#articles"/>
             </Col>

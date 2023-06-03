@@ -14,6 +14,12 @@
   max-width: 80%;
 }
 
+@media screen and not(min-width: 576px) {
+  .app {
+    max-width: 100%;
+  }
+}
+
 .btn-to-about {
   position: fixed;
   bottom: 0;
