@@ -7,6 +7,7 @@ import ArtShrineInForest from "../assets/artwork/graphicchance.png"
 import ArtMiku from "../assets/artwork/mikumiku.png"
 import ArtN from "../assets/artwork/nikke-n.png"
 import ArtRapunzel from "../assets/artwork/rapunzel.gif"
+import ArtIkanDemind from "../assets/artwork/IkanDemind.png"
 
 const ArtWorks = () => {
     return (
@@ -15,6 +16,14 @@ const ArtWorks = () => {
           <h1>Artworks</h1>
         </Row>
         <Row className='d-flex align-items-center'>
+          <Col>
+          <ArtCard 
+            src={ArtIkanDemind}
+            title='イカンデミンドコントロール'
+            createdAt='2023/6/17'
+            artWidth={256}
+            />
+          </Col>
           <Col>
           <ArtCard 
             src={ArtDorothy}
