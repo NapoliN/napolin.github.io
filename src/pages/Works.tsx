@@ -2,6 +2,7 @@ import "./Works.css"
 import { Container, Row } from "react-bootstrap"
 import ImgSplashRoyal from "../assets/works/splashroyal.png"
 import ImgIkanDemind from "../assets/works/ikandemind.png"
+import ImgMeshibu from "../assets/works/meshibu.png"
 
 const Works = () => {
     return (
@@ -33,6 +34,17 @@ const Works = () => {
                     <p>使用技術：C#、Unity</p>
                     <p><a href="https://napolin.github.io/IkanDemindControl/">Link</a></p>
                     <p><a href="https://trap.jp/post/1903/">Blog</a></p>
+                </div>
+            </Row>
+            <Row>
+                <h3 className="my-3">飯ぶ</h3>
+                <img src={ImgMeshibu} />
+                <div className="my-3">
+                    <h4>About</h4>
+                    <p>自分が行ったことのある飲食店を紹介するサイト。大岡山地区版と全国版を作りました。</p>
+                    <p>フロントエンドの勉強＋Github Actionsのテストを兼ねて作成。</p>
+                    <p>使用技術：Vue</p>
+                    <p><a href="https://napolin.github.io/meshi/#/trip">Link</a></p>
                 </div>
             </Row>
         </Container>
