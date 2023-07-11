@@ -20,7 +20,7 @@ const ArtWorks = () => {
         <Col>
           <ArtCard 
             src={ArtTateishi}
-            title='立石公園'
+            title='諏訪湖'
             createdAt='2023/7/11'
             artWidth={320}
             description="素材撮影：長野県諏訪市 立石公園"
