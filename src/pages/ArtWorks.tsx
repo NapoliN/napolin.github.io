@@ -8,6 +8,7 @@ import ArtMiku from "../assets/artwork/mikumiku.png"
 import ArtN from "../assets/artwork/nikke-n.png"
 import ArtRapunzel from "../assets/artwork/rapunzel.gif"
 import ArtIkanDemind from "../assets/artwork/IkanDemind.png"
+import ArtTateishi from "../assets/artwork/tateishi.png"
 
 const ArtWorks = () => {
     return (
@@ -16,6 +17,15 @@ const ArtWorks = () => {
           <h1>Artworks</h1>
         </Row>
         <Row className='d-flex align-items-center'>
+        <Col>
+          <ArtCard 
+            src={ArtTateishi}
+            title='立石公園'
+            createdAt='2023/7/11'
+            artWidth={320}
+            description="素材撮影：長野県諏訪市 立石公園"
+            />
+          </Col>
           <Col>
           <ArtCard 
             src={ArtIkanDemind}
@@ -38,7 +48,7 @@ const ArtWorks = () => {
             title='桜分水'
             createdAt='2023/5/5'
             artWidth={320}
-            description='素材撮影：新潟県 分水駅'
+            description='素材撮影：新潟県燕市 分水駅'
           />
           </Col>
           <Col>
@@ -48,7 +58,7 @@ const ArtWorks = () => {
             createdAt='2023/5/23'
             artWidth={240}
             description='部内イベント Graphic Chance!
-                          素材撮影：大分県 宇佐神宮'
+                          素材撮影：大分県宇佐市 宇佐神宮'
           />
           </Col>
           <Col>
