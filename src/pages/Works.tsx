@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap"
 import ImgSplashRoyal from "../assets/works/splashroyal.png"
 import ImgIkanDemind from "../assets/works/ikandemind.png"
 import ImgMeshibu from "../assets/works/meshibu.png"
+import ImgEasySummarizer from "../assets/works/easysummarizer.png"
 
 const Works = () => {
     return (
@@ -45,6 +46,16 @@ const Works = () => {
                     <p>フロントエンドの勉強＋Github Actionsのテストを兼ねて作成。</p>
                     <p>使用技術：Vue</p>
                     <p><a href="https://napolin.github.io/meshi/#/trip">Link</a></p>
+                </div>
+            </Row>
+            <Row>
+                <h3 className="my-3">EasySummarizer</h3>
+                <img src={ImgEasySummarizer}/>
+                <div className="my-3">
+                    <h4>About</h4>
+                    <p>大学主催のイベント「学生コンテスト-chatGPTを使い倒せ！」にて開発し、プレゼン賞を受賞。</p>
+                    <p>pdfの資料をベースとして、pptx形式のスライドを自動生成するツール。バックエンドにてOpenAI(chatGPT)を利用。</p>
+                    <p>３人チームで開発し、開発ではチームリーダー/企画/フロントエンドを担当した。</p>
                 </div>
             </Row>
         </Container>
