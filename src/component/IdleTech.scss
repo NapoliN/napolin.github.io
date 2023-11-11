@@ -6,6 +6,11 @@ $bmps: $bmp1, $bmp2;
     position:absolute;
     top: calc(50vh - (var(--scale))* 48);
     left: calc(50vw - (var(--scale) * 32) - (var(--scale) * 64) + 70*var(--scale)*2);
+
+    @media (max-width: 1000px) {
+        top: calc(50vh - (var(--scale))* 80);
+        left: calc(50vw - (var(--scale) * 32)); 
+    }
 }
 
 .idle-tech{
