@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from 'react';
 import './App.css'
-import About from './pages/About';
 
+import Top from "./pages/Top"
+import About from './pages/About';
 import ArtWorks from './pages/ArtWorks';
 import Articles from './pages/Articles';
 import Works from './pages/Works';
@@ -20,17 +21,20 @@ const App = () => {
 
   return (
     <div className='app mx-auto justify-content-md-center' id="top">
-      <About />
-      <ArtWorks/>
-      <Works />
-      <Articles />
-      { scroll > 200 && 
-        <div className='btn-to-about m-3'>
-        <a href="#top">
-          <b>Return to Top</b>
-        </a>
-        </div>
-      }
+      <Top />
+      <div className='not-top'>
+        <About />
+        <ArtWorks/>
+        <Works />
+        <Articles />
+        { scroll > 200 && 
+          <div className='btn-to-about m-3'>
+          <a href="#top">
+            <b>Return to Top</b>
+          </a>
+          </div>
+        }
+      </div>
     </div>
   )
 }

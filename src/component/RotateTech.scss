@@ -1,0 +1,61 @@
+.rotate-tech-position {
+    position:absolute;
+    top: calc(50vh - (var(--scale))* 48);
+    left: calc(50vw - (var(--scale) * 32) - (var(--scale) * 64));
+}
+
+.rotate-tech{
+    width: var(--scale);
+    height: var(--scale);
+    position: relative;
+}
+
+$bmps : 32 18 #1f4ea2,33 18 #1f4ea2,34 18 #1f4ea2,31 19 #1f4ea2,32 19 #639bff,33 19 #3a6cc7,34 19 #1f4ea2,28 20 #1f4ea2,29 20 #1f4ea2,30 20 #1f4ea2,31 20 #1f4ea2,32 20 #639bff,33 20 #1f4ea2,34 20 #1f4ea2,35 20 #1f4ea2,27 21 #1f4ea2,28 21 #639bff,29 21 #639bff,30 21 #1f4ea2,31 21 #1f4ea2,32 21 #639bff,33 21 #639bff,34 21 #639bff,35 21 #1f4ea2,36 21 #1f4ea2,26 22 #1f4ea2,27 22 #639bff,28 22 #66748b,29 22 #66748b,30 22 #639bff,31 22 #639bff,32 22 #639bff,33 22 #639bff,34 22 #66748b,35 22 #32425d,36 22 #1f4ea2,37 22 #1f4ea2,25 23 #1f4ea2,26 23 #639bff,27 23 #66748b,28 23 #66748b,29 23 #639bff,30 23 #639bff,31 23 #639bff,32 23 #639bff,33 23 #639bff,34 23 #639bff,35 23 #1f4ea2,36 23 #32425d,37 23 #2b4674,23 24 #c7d1e3,24 24 #c7d1e3,25 24 #c7d1e3,26 24 #639bff,27 24 #66748b,28 24 #639bff,29 24 #639bff,30 24 #639bff,31 24 #639bff,32 24 #639bff,33 24 #639bff,34 24 #639bff,35 24 #1f4ea2,36 24 #1f4ea2,37 24 #254a8b,23 25 #c7d1e3,24 25 #66748b,25 25 #c7d1e3,26 25 #c7d1e3,27 25 #66748b,28 25 #639bff,29 25 #1f4ea2,30 25 #f8c091,31 25 #1f4ea2,32 25 #639bff,33 25 #1f4ea2,34 25 #1f4ea2,35 25 #1f4ea2,36 25 #1f4ea2,37 25 #1f4ea2,24 26 #66748b,25 26 #66748b,26 26 #c7d1e3,27 26 #c7d1e3,28 26 #639bff,29 26 #1f4ea2,30 26 #f8c091,31 26 #1f4ea2,32 26 #1f4ea2,33 26 #f8c091,34 26 #1f4ea2,35 26 #1f4ea2,36 26 #1f4ea2,37 26 #1f4ea2,23 27 #c7d1e3,24 27 #c7d1e3,25 27 #c7d1e3,26 27 #c7d1e3,27 27 #1f4ea2,28 27 #1f4ea2,29 27 #f8c091,30 27 #806c5b,31 27 #003b5d,32 27 #f8c091,33 27 #f8c091,34 27 #003b5d,35 27 #f8c091,36 27 #1f4ea2,37 27 #1f4ea2,23 28 #c7d1e3,24 28 #c7d1e3,25 28 #c7d1e3,26 28 #1f4ea2,27 28 #639bff,28 28 #1f4ea2,29 28 #f8c091,30 28 #ffffff,31 28 #29dad1,32 28 #fff0d9,33 28 #ffffff,34 28 #29dad1,35 28 #fff0d9,36 28 #a4a5b4,37 28 #1f4ea2,24 29 #c7d1e3,25 29 #1f4ea2,26 29 #639bff,27 29 #639bff,28 29 #1f4ea2,29 29 #f8c091,30 29 #fff0d9,31 29 #f6c4be,32 29 #fff0d9,33 29 #fff0d9,34 29 #f6c4be,35 29 #fff0d9,36 29 #fff0d9,25 30 #1f4ea2,26 30 #639bff,27 30 #639bff,28 30 #1f4ea2,29 30 #e5a773,30 30 #f8c091,31 30 #f8c091,32 30 #f8c091,33 30 #f8c091,34 30 #f8c091,35 30 #1f4ea2,36 30 #d77bba,37 30 #d77bba,11 31 #ffffff,12 31 #fbf236,13 31 #b09400,14 31 #b09400,25 31 #1f4ea2,26 31 #1f4ea2,27 31 #b09400,28 31 #1f4ea2,29 31 #1f4ea2,30 31 #1f4ea2,31 31 #f8c091,32 31 #f8c091,33 31 #1f4ea2,34 31 #1f4ea2,35 31 #4a649e,36 31 #996cb2,37 31 #d77bba,38 31 #d77bba,39 31 #d77bba,40 31 #d77bba,41 31 #d77bba,11 32 #ffffff,12 32 #fbf236,13 32 #b09400,14 32 #b09400,15 32 #b09400,24 32 #b09400,25 32 #b09400,26 32 #b09400,27 32 #938620,28 32 #4f656c,29 32 #f8c091,30 32 #639bff,31 32 #f8c091,32 32 #f8c091,33 32 #1f4ea2,34 32 #fff0d9,35 32 #b4bac6,37 32 #d77bba,38 32 #d77bba,39 32 #d77bba,40 32 #d77bba,41 32 #d77bba,42 32 #d77bba,43 32 #d77bba,44 32 #d77bba,45 32 #d77bba,11 33 #ffffff,12 33 #fbf236,13 33 #b09400,14 33 #b09400,15 33 #b09400,21 33 #b09400,22 33 #b09400,23 33 #b09400,24 33 #b09400,25 33 #b09400,26 33 #b09400,27 33 #b09400,29 33 #fff0d9,30 33 #c7d1e3,31 33 #639bff,32 33 #f8c091,33 33 #639bff,34 33 #fff0d9,35 33 #fff0d9,36 33 #fff0d9,41 33 #d77bba,42 33 #d77bba,43 33 #d77bba,44 33 #d77bba,45 33 #d77bba,46 33 #d77bba,11 34 #ffffff,12 34 #ffffff,13 34 #b09400,14 34 #b09400,15 34 #b09400,16 34 #b09400,17 34 #b09400,18 34 #b09400,19 34 #b09400,20 34 #b09400,21 34 #b09400,22 34 #b09400,23 34 #b09400,24 34 #b09400,28 34 #fff0d9,29 34 #639bff,30 34 #ffffff,31 34 #ffffff,32 34 #639bff,33 34 #ffffff,34 34 #639bff,35 34 #fff0d9,36 34 #fff0d9,45 34 #d77bba,46 34 #d77bba,11 35 #ffffff,12 35 #ffffff,13 35 #cab755,14 35 #b09400,15 35 #b09400,16 35 #b09400,17 35 #b09400,18 35 #b09400,19 35 #b09400,20 35 #b09400,21 35 #b09400,28 35 #fff0d9,29 35 #639bff,30 35 #ffffff,31 35 #ffffff,32 35 #ffffff,33 35 #ffffff,34 35 #639bff,35 35 #fff0d9,36 35 #fff0d9,37 35 #fff0d9,45 35 #d77bba,46 35 #d77bba,47 35 #d77bba,28 36 #fff0d9,29 36 #639bff,30 36 #ffffff,31 36 #ffffff,32 36 #ffffff,33 36 #ffffff,34 36 #639bff,35 36 #f8c091,36 36 #fff0d9,37 36 #fff0d9,46 36 #d77bba,47 36 #d77bba,48 36 #d77bba,27 37 #fff0d9,28 37 #fff0d9,29 37 #639bff,30 37 #ffffff,31 37 #ffffff,32 37 #ffffff,33 37 #ffffff,34 37 #639bff,35 37 #f8c091,36 37 #fff0d9,37 37 #fff0d9,46 37 #d77bba,47 37 #d77bba,48 37 #d77bba,49 37 #d77bba,27 38 #fff0d9,28 38 #fff0d9,29 38 #639bff,30 38 #ffffff,31 38 #ffffff,32 38 #ffffff,33 38 #ffffff,34 38 #639bff,35 38 #639bff,36 38 #f8c091,37 38 #fad0a9,45 38 #d77bba,46 38 #d77bba,47 38 #d77bba,48 38 #d77bba,49 38 #d77bba,50 38 #d77bba,51 38 #d77bba,27 39 #fff0d9,28 39 #fff0d9,29 39 #639bff,30 39 #639bff,31 39 #ffffff,32 39 #ffffff,33 39 #ffffff,34 39 #ffffff,35 39 #639bff,36 39 #9ea9d3,37 39 #f8c091,45 39 #d77bba,46 39 #d77bba,47 39 #d77bba,48 39 #d77bba,49 39 #d77bba,50 39 #d77bba,51 39 #d77bba,27 40 #f8c091,28 40 #f8c091,29 40 #639bff,30 40 #639bff,31 40 #ffffff,32 40 #ffffff,33 40 #ffffff,34 40 #ffffff,35 40 #639bff,36 40 #639bff,45 40 #fbf236,46 40 #fbf236,47 40 #fbf236,48 40 #fbf236,49 40 #ffffff,50 40 #ffffff,51 40 #f1d3e8,27 41 #f8c091,28 41 #1f4ea2,29 41 #639bff,30 41 #639bff,31 41 #ffffff,32 41 #ffffff,33 41 #ffffff,34 41 #ffffff,35 41 #639bff,36 41 #1f4ea2,37 41 #1f4ea2,45 41 #ffffff,46 41 #ffffff,47 41 #ffffff,48 41 #ffffff,49 41 #ffffff,50 41 #ffffff,51 41 #ffffff,28 42 #1f4ea2,29 42 #639bff,30 42 #ffffff,31 42 #ffffff,32 42 #ffffff,33 42 #ffffff,34 42 #ffffff,35 42 #c7d1e3,36 42 #639bff,37 42 #1f4ea2,38 42 #1f4ea2,45 42 #ffffff,46 42 #ffffff,47 42 #ffffff,48 42 #ffffff,49 42 #ffffff,50 42 #ffffff,51 42 #ffffff,26 43 #1f4ea2,27 43 #1f4ea2,28 43 #639bff,29 43 #639bff,30 43 #ffffff,31 43 #ffffff,32 43 #ffffff,33 43 #ffffff,34 43 #ffffff,35 43 #c7d1e3,36 43 #c7d1e3,37 43 #639bff,38 43 #4c81e0,25 44 #1f4ea2,26 44 #639bff,27 44 #639bff,28 44 #639bff,29 44 #ffffff,30 44 #ffffff,31 44 #ffffff,32 44 #ffffff,33 44 #ffffff,34 44 #ffffff,35 44 #ffffff,36 44 #c7d1e3,37 44 #639bff,38 44 #1f4ea2,39 44 #1f4ea2,24 45 #639bff,25 45 #639bff,26 45 #639bff,27 45 #639bff,28 45 #639bff,29 45 #ffffff,30 45 #ffffff,31 45 #ffffff,32 45 #ffffff,33 45 #ffffff,34 45 #ffffff,35 45 #ffffff,36 45 #ffffff,37 45 #639bff,38 45 #639bff,39 45 #1f4ea2,40 45 #1f4ea2,23 46 #ffffff,24 46 #639bff,25 46 #639bff,26 46 #639bff,27 46 #639bff,28 46 #ffffff,29 46 #ffffff,30 46 #ffffff,31 46 #ffffff,32 46 #ffffff,33 46 #ffffff,34 46 #ffffff,35 46 #ffffff,36 46 #ffffff,37 46 #ffffff,38 46 #639bff,39 46 #639bff,40 46 #1f4ea2,41 46 #1f4ea2,9 47 #d13737,10 47 #ffffff,11 47 #d13737,12 47 #74d57e,13 47 #74d57e,14 47 #74d57e,15 47 #74d57e,22 47 #ffffff,23 47 #c7d1e3,24 47 #639bff,25 47 #639bff,26 47 #639bff,27 47 #639bff,28 47 #639bff,29 47 #639bff,30 47 #ffffff,31 47 #ffffff,32 47 #ffffff,33 47 #ffffff,34 47 #ffffff,35 47 #ffffff,36 47 #639bff,37 47 #639bff,38 47 #639bff,39 47 #639bff,40 47 #1f4ea2,41 47 #1f4ea2,42 47 #1f4ea2,7 48 #66748b,8 48 #66748b,9 48 #d13737,10 48 #ffffff,11 48 #d13737,12 48 #74d57e,13 48 #74d57e,14 48 #74d57e,15 48 #74d57e,16 48 #74d57e,17 48 #74d57e,22 48 #ffffff,23 48 #c7d1e3,24 48 #639bff,25 48 #639bff,26 48 #639bff,27 48 #639bff,28 48 #639bff,29 48 #639bff,30 48 #ffffff,31 48 #ffffff,32 48 #ffffff,33 48 #ffffff,34 48 #ffffff,35 48 #ffffff,36 48 #ffffff,37 48 #639bff,38 48 #639bff,39 48 #639bff,40 48 #1f4ea2,41 48 #c7d1e3,42 48 #8fa5cd,7 49 #66748b,8 49 #66748b,9 49 #ad4b53,10 49 #efbcbc,11 49 #e07979,12 49 #93a066,13 49 #74d57e,14 49 #74d57e,15 49 #74d57e,16 49 #74d57e,17 49 #74d57e,18 49 #74d57e,21 49 #74d57e,22 49 #ffffff,23 49 #ffffff,24 49 #c7d1e3,25 49 #639bff,26 49 #639bff,27 49 #639bff,28 49 #c7d1e3,29 49 #ffffff,30 49 #ffffff,31 49 #ffffff,32 49 #ffffff,33 49 #ffffff,34 49 #ffffff,35 49 #ffffff,36 49 #ffffff,37 49 #639bff,38 49 #639bff,39 49 #639bff,40 49 #c7d1e3,41 49 #c7d1e3,42 49 #c7d1e3,16 50 #74d57e,17 50 #74d57e,18 50 #74d57e,19 50 #74d57e,20 50 #74d57e,21 50 #74d57e,22 50 #1f4ea2,23 50 #ffffff,24 50 #ffffff,25 50 #ffffff,26 50 #ffffff,27 50 #ffffff,28 50 #ffffff,29 50 #ffffff,30 50 #ffffff,31 50 #ffffff,32 50 #ffffff,33 50 #ffffff,34 50 #ffffff,35 50 #ffffff,36 50 #ffffff,37 50 #ffffff,38 50 #ffffff,39 50 #ffffff,40 50 #c7d1e3,41 50 #c7d1e3,42 50 #c7d1e3,17 51 #74d57e,18 51 #74d57e,19 51 #74d57e,20 51 #74d57e,21 51 #74d57e,22 51 #3b7b96,23 51 #1f4ea2,24 51 #ffffff,25 51 #ffffff,26 51 #ffffff,27 51 #ffffff,28 51 #ffffff,29 51 #ffffff,30 51 #ffffff,31 51 #ffffff,32 51 #ffffff,33 51 #ffffff,34 51 #ffffff,35 51 #ffffff,36 51 #ffffff,37 51 #ffffff,38 51 #ffffff,39 51 #ffffff,40 51 #e8ecf3,41 51 #c7d1e3,23 52 #1f4ea2,24 52 #b4c4e0,25 52 #ffffff,26 52 #ffffff,27 52 #ffffff,28 52 #ffffff,29 52 #f8c091,30 52 #f8c091,31 52 #fff0d9,32 52 #fff0d9,33 52 #fff0d9,34 52 #fff9ef,35 52 #ffffff,36 52 #ffffff,37 52 #ffffff,38 52 #ffffff,39 52 #ffffff,40 52 #ffffff,29 53 #f8c091,30 53 #f8c091,31 53 #fff0d9,32 53 #fff0d9,33 53 #fff0d9,34 53 #fff0d9,29 54 #f8c091,30 54 #f8c091,31 54 #fff0d9,32 54 #fff0d9,33 54 #fff0d9,34 54 #fff0d9,29 55 #1f4ea2,30 55 #1f4ea2,31 55 #639bff,32 55 #639bff,33 55 #639bff,34 55 #639bff,35 55 #639bff,29 56 #1f4ea2,30 56 #1f4ea2,31 56 #639bff,32 56 #639bff,33 56 #639bff,34 56 #639bff,35 56 #639bff,29 57 #1f4ea2,30 57 #1f4ea2,31 57 #1f4ea2,32 57 #639bff,33 57 #639bff,34 57 #639bff,35 57 #639bff,30 58 #1f4ea2,31 58 #1f4ea2,32 58 #4c81e0,33 58 #639bff,34 58 #639bff,35 58 #639bff;
+
+
+@keyframes delay-visible {
+    0% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
+@keyframes rotate-one {
+    0% {
+        transform: rotateY(270deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes hide {
+    0% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+
+.rotate-tech > * {
+    position: absolute;
+    width: calc(var(--scale) - 2px);
+    height: calc(var(--scale) - 2px);
+    opacity: 0.75;
+}
+
+$i: 0;
+@each $x, $y, $color in $bmps {
+    .rotate-tech-#{$i} {
+        top: calc($y * var(--scale));
+        left: calc($x * var(--scale));
+        background-color: $color;
+        animation: delay-visible calc(#{$i}* 0.005s) step-end 0s 1,
+                    rotate-one 0.5s ease-in calc(#{$i}* 0.005s) 1,
+                    hide 0s step-end var(--logo-gen-start) 1 forwards;
+    }
+    $i : $i + 1
+}

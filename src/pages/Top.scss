@@ -1,0 +1,33 @@
+#top-wrapper {
+  --anim-length : 4s;
+  --logo-gen-start : 5s;
+  --logo-gen-length : 10s;
+  --move-step : 70;
+
+  --scale : 4px;
+  @media (min-width: 1000px) {
+    --scale: 5px;
+  }
+  @media (min-width: 1220px) {
+    --scale: 6px;
+  }
+  @media (min-width: 1400px) {
+    --scale: 7px;
+  }
+  @media (min-width: 1640px) {
+    --scale: 8px;
+  }
+}
+
+.Top{
+    background-color: #12121a; /* 背景色を紺色に設定 */
+    background-image: linear-gradient(0deg, transparent calc(var(--scale) - 1px), rgba(144, 238, 144, 0.3) var(--scale)), linear-gradient(90deg, transparent calc(var(--scale) - 1px), rgba(144, 238, 144, 0.3) var(--scale)); /* 縦横のグリッドを設定 */
+    background-size: var(--scale) var(--scale); /* グリッドの1つあたりのサイズを20pxに設定 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* コンテンツの下に配置 */
+}
+
