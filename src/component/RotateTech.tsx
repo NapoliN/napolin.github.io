@@ -5,7 +5,7 @@ const RotateTech = () => {
     const count = 656
     const list : Array<ReactElement> = []
     for(let i = 0; i<count; i++){
-        list.push(<div className={`rotate-tech-${i}`}></div>)
+        list.push(<div className={`rotate-tech-${i} tech-gen`}></div>)
     }
         
     return (

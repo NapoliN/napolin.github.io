@@ -40,13 +40,6 @@ $bmps : 32 18 #1f4ea2,33 18 #1f4ea2,34 18 #1f4ea2,31 19 #1f4ea2,32 19 #639bff,33
     }
 }
 
-.rotate-tech > * {
-    position: absolute;
-    width: calc(var(--scale) - 2px);
-    height: calc(var(--scale) - 2px);
-    opacity: 0.75;
-}
-
 $i: 0;
 @each $x, $y, $color in $bmps {
     .rotate-tech-#{$i} {

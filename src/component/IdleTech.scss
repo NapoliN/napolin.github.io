@@ -15,11 +15,7 @@ $bmps: $bmp1, $bmp2;
 }
 
 .idle-tech > * {
-    position: absolute;
     visibility: hidden;
-    width: calc(var(--scale) - 2px);
-    height: calc(var(--scale) - 2px);
-    opacity: 0.75;
 } 
 
 @function scale_bmps($s,$bmp){

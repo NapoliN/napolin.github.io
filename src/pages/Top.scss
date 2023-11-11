@@ -4,11 +4,16 @@
   --logo-gen-length : 10s;
   --move-step : 70;
 
-  --scale : 4px;
+  --tech-opacity : 0.9;
+  --dot-space : 1px;
+  --scale : 3px;
   @media (min-width: 1000px) {
+    --dot-space : 2px;
+    --tech-opacity : 0.8;
     --scale: 5px;
   }
   @media (min-width: 1220px) {
+    --tech-opacity : 0.75;
     --scale: 6px;
   }
   @media (min-width: 1400px) {
@@ -31,3 +36,9 @@
     z-index: -1; /* コンテンツの下に配置 */
 }
 
+.tech-gen {
+  position: absolute;
+  width: calc(var(--scale) - var(--dot-space));
+  height: calc(var(--scale) - var(--dot-space));
+  opacity: var(--tech-opacity);
+}

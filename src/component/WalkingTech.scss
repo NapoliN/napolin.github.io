@@ -18,11 +18,7 @@ $tech_bmps : $tech1_bmps, $tech2_bmps, $tech3-bmps, $tech4_bmps;
   }
 
 .walking-tech > * {
-    position: absolute;
     visibility: hidden;
-    width: calc(var(--scale) - 2px);
-    height: calc(var(--scale) - 2px);
-    opacity: 0.75;
 } 
 
 @function scale_bmps($s,$bmp){
