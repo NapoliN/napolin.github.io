@@ -12,6 +12,7 @@ import ArtTateishi from "../assets/artwork/tateishi.png"
 import ArtInari from "../assets/artwork/inari.png"
 import ArtEnoshgima from "../assets/artwork/enoshima.png"
 import ArtTateyama from "../assets/artwork/tateyama.png"
+import ArtAkeome2024 from "../assets/artwork/akeome2024.png"
 
 const ArtWorks = () => {
     return (
@@ -20,6 +21,14 @@ const ArtWorks = () => {
           <h1>Artworks</h1>
         </Row>
         <Row className='d-flex align-items-center'>
+        <Col>
+          <ArtCard
+            src = {ArtAkeome2024}
+            title="年賀状2024"
+            createdAt="2024/1/1"
+            artWidth={240}
+          />
+          </Col>
         <Col>
           <ArtCard
             src = {ArtInari}
