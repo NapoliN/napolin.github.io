@@ -26,7 +26,7 @@ const ArtWorks = () => {
             src = {ArtAkeome2024}
             title="年賀状2024"
             createdAt="2024/1/1"
-            artWidth={240}
+            artWidth={320}
           />
           </Col>
         <Col>
