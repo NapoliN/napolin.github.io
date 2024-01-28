@@ -14,12 +14,16 @@ import "./AboutMe.css"
 const AboutMe = () => {
     return (
         <div className="content" id="aboutme">
-            <div className="my-5 section">
-                <div className="py-3">
-                    <p className="fs-1 mb-0 px-5 text-end text-white">About Me</p>
+            <div className="d-flex justify-content-start">
+                <div>
+                    <div className="mt-5 my-3 section">
+                        <div className="py-3">
+                            <p className="fs-1 mb-0 px-5 text-end text-white">About Me</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            
             <Container className="h-100">
                 <Row className="mt-10">
                     <Col lg="6">

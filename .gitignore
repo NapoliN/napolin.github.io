@@ -27,3 +27,5 @@ dist-ssr
 *.bmp
 *.txt
 *.py
+
+build/
