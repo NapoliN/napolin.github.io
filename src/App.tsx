@@ -8,7 +8,8 @@ import Artwork from './pages/Artwork';
 
 
 const App = () => {
-  const getScroll = () => {
+  /*
+    const getScroll = () => {
     return window.scrollY
   }
   const [scroll, setScroll] = useState(0)
@@ -16,6 +17,8 @@ const App = () => {
   useEffect(() => {
     addEventListener("scroll", (_) => {setScroll(getScroll())})
   },[])
+
+  */
 
   return (
     <div className='app' id="top">
