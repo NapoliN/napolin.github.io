@@ -3,10 +3,6 @@ import { useEffect, useState } from 'react';
 import './App.css'
 
 import Top from "./pages/Top"
-import About from './pages/About';
-import ArtWorks from './pages/ArtWorks';
-import Articles from './pages/Articles';
-import Works from './pages/Works';
 import AboutMe from './pages/AboutMe';
 import Artwork from './pages/Artwork';
 
