@@ -6,9 +6,8 @@ import IdleTech from "../component/Top/TechChan/IdleTech"
 
 const Top = () => {
     return (
-        <div id="top-wrapper">
-            <div className="Top">
-
+        <div id="top-wrapper" className="content">
+            <div className="top-background">
             </div>
             <Logo />
             <RotateTech />

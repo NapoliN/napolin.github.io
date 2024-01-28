@@ -1,12 +1,13 @@
-#root {
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  z-index: 10;
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;700&display=swap');
+
+#root{
+  overflow-x: hidden !important;
+  font-family: 'M PLUS 1p', sans-serif;
 }
 
 .content {
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 .not-top {
@@ -17,26 +18,13 @@
   background-color: #eaeaea !important;
 }
 
-.app {
-  max-width: 100%;
-}
-
-@media screen and (min-width: 576px) {
-  .app {
-    max-width: 80%;
-  }
-}
-
 .btn-to-about {
   position: fixed;
   bottom: 0;
   right: 10%;
 }
 
-.discolor-href {
-  color:black
-}
-
-.discolor-href:hover {
-  color:black
+.section {
+  width: 75vw;
+  background-color: #555555;
 }
