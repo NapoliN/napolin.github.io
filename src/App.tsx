@@ -4,6 +4,7 @@ import './App.css'
 import Top from "./pages/Top"
 import AboutMe from './pages/AboutMe';
 import Artwork from './pages/Artwork';
+import Project from './pages/Project';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
       <Top />
       <AboutMe />
       <Artwork />
+      <Project />
     </div>
   )
 }
