@@ -4,15 +4,6 @@ import Item from "../component/Item"
 import { IconContext } from "react-icons";
 import { FaGithub } from "react-icons/fa";
 
-// ロゴの上にテキストを表示するコンポーネント
-const LogoWithText = (text: string) => (
-  <div className='logo-with-text'>
-    <img src="/logo192.png" alt="logo" className="logo"/>
-    <h1 className='logo-text'>{text}</h1>
-  </div>
-)
-
-
 // about page component
 const About = () => {
     return (
