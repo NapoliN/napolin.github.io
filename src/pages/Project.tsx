@@ -24,16 +24,20 @@ const Project = () => {
                                 <p className="fs-2">イカンデミンドコントロール</p>
                             </Card.Header>
                             <div className="d-flex align-items-center">
-                                <Card.Img src={Ikandemind} height="100%" style={{width:"50%"}}/>
+                                <Card.Img src={Ikandemind} height="100%" style={{ width: "50%" }} />
                                 <div>
                                     <Container>
                                         <Row>
                                             <Col>
-                                                <p>2023年6月サークル内ハッカソンにて製作。</p>
-                                                <p>ハクスラの爽快感にリズム要素を加えた新感覚音ゲーを目指しました。</p>
-                                                <p><span className="fw-bold">使用技術:</span> Unity(C#)</p>
-                                                <p><span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ・グラフィッカ</p>
-                                                <p><span className="fw-bold">製作期間:</span> 30時間</p>
+                                                <p>
+                                                    2023年6月サークル内ハッカソンにて製作。
+                                                    ハクスラの爽快感にリズム要素を加えた新感覚音ゲーを目指しました。
+                                                </p>
+                                                <p>
+                                                    <span className="fw-bold">使用技術:</span> Unity(C#)<br />
+                                                    <span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ・グラフィッカ<br />
+                                                    <span className="fw-bold">製作期間:</span> 30時間<br />
+                                                </p>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -47,16 +51,20 @@ const Project = () => {
                                 <p className="fs-2">Splash Loyal</p>
                             </Card.Header>
                             <div className="d-flex align-items-center">
-                                <Card.Img src={SplashLoyal} height="100%" style={{width:"50%"}}/>
+                                <Card.Img src={SplashLoyal} height="100%" style={{ width: "50%" }} />
                                 <div>
                                     <Container>
                                         <Row>
                                             <Col>
-                                                <p>2021年12月、サークル内のハッカソン(pixiv社協賛)にて製作。デザイン賞受賞。</p>
-                                                <p>色塗りをテーマとした2人制ターン制陣取りゲーム。</p>
-                                                <p><span className="fw-bold">使用技術:</span> Unity(C#) フレームワークとしてPhoton</p>
-                                                <p><span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ(統括)</p>
-                                                <p><span className="fw-bold">製作期間:</span> 1週間</p>
+                                                <p>
+                                                    2021年12月、サークル内のハッカソン(pixiv社協賛)にて製作。デザイン賞受賞。<br />
+                                                    色塗りをテーマとした2人制ターン制陣取りゲーム。
+                                                </p>
+                                                <p>
+                                                    <span className="fw-bold">使用技術:</span> Unity(C#) フレームワークとしてPhoton <br />
+                                                    <span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ(統括)<br />
+                                                    <span className="fw-bold">製作期間:</span> 1週間
+                                                </p>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -70,16 +78,20 @@ const Project = () => {
                                 <p className="fs-2">Easy Summarizer</p>
                             </Card.Header>
                             <div className="d-flex align-items-center">
-                                <Card.Img src={EasySummarizer} height="100%" style={{width:"50%"}}/>
+                                <Card.Img src={EasySummarizer} height="100%" style={{ width: "50%" }} />
                                 <div>
                                     <Container>
                                         <Row>
                                             <Col>
-                                                <p>2023年9月、東工大情報理工学院主催「chatGPTを使い倒せ！」コンテストにて開発し、プレゼン賞を受賞。</p>
-                                                <p>pdf資料を入力とすることで、pdfを要約したpptxファイルを出力・表示してくれるアプリ。</p>
-                                                <p><span className="fw-bold">使用技術:</span> TypeScript(Vue), Python</p>
-                                                <p><span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ(フロントエンド)</p>
-                                                <p><span className="fw-bold">製作期間:</span> 約3週間</p>
+                                                <p>
+                                                    2023年9月、東工大情報理工学院主催「chatGPTを使い倒せ！」コンテストにて開発し、プレゼン賞を受賞。
+                                                    pdf資料を入力とすることで、pdfを要約したpptxファイルを出力・表示してくれるアプリ。
+                                                </p>
+                                                <p>
+                                                    <span className="fw-bold">使用技術:</span> TypeScript(Vue), Python<br />
+                                                    <span className="fw-bold">担当範囲:</span> チームリーダー・プログラマ(フロントエンド)<br />
+                                                    <span className="fw-bold">製作期間:</span> 約3週間
+                                                </p>
                                             </Col>
                                         </Row>
                                     </Container>
