@@ -44,7 +44,7 @@ const Project = () => {
                     <Col md="6">
                         <Card>
                             <Card.Header>
-                                <p className="fs-2">Easy Summarizer</p>
+                                <p className="fs-2">Splash Loyal</p>
                             </Card.Header>
                             <div className="d-flex align-items-center">
                                 <Card.Img src={EasySummarizer} height="100%" style={{width:"50%"}}/>
@@ -67,7 +67,7 @@ const Project = () => {
                     <Col md="6">
                         <Card>
                             <Card.Header>
-                                <p className="fs-2">Splash Loyal</p>
+                                <p className="fs-2">Easy Summarizer</p>
                             </Card.Header>
                             <div className="d-flex align-items-center">
                                 <Card.Img src={SplashLoyal} height="100%" style={{width:"50%"}}/>
