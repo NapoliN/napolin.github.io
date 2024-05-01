@@ -3,6 +3,7 @@ import { Col, Container, Row, Card, Button } from "react-bootstrap"
 import ArtInari from "../assets/artwork/inari.png"
 import ArtAkeome2024 from "../assets/artwork/akeome2024.png"
 import ArtTomioka from "../assets/artwork/tomioka.png"
+import ArtComitia24sp from "../assets/artwork/comitia24sp.png"
 
 const Artwork = () => {
     return (
@@ -43,6 +44,14 @@ const Artwork = () => {
                                 <img src={ArtInari} style={{ height: "480px" }} />
                                 <Card.Footer>
                                     <p className="text-end mb-0">2023.11.5</p>
+                                </Card.Footer>
+                            </Card>
+                        </Col>
+                        <Col className="d-flex justify-content-center">
+                            <Card style={{width: "360px"}}>
+                                <img src={ArtComitia24sp}/>
+                                <Card.Footer>
+                                    <p className="text-end mb-0">2024.4.29</p>
                                 </Card.Footer>
                             </Card>
                         </Col>
