@@ -39,8 +39,8 @@ const AboutMe = () => {
                                         </Col>
                                         <Col>
                                             <p><span className="fw-bold">FROM:</span> 北海道札幌市</p>
-                                            <p><span className="fw-bold">UNIV:</span> 東京工業大学情報理工学院 修士1年</p>
-                                            <p><span className="fw-bold">COMMENT:</span> ポートフォリオ工事中…</p>
+                                            <p><span className="fw-bold">UNIV:</span> 東京工業大学情報理工学院 修士2年</p>
+                                            <p><span className="fw-bold">COMMENT:</span> お絵かき楽しい</p>
                                         </Col>
                                     </Row>
                                 </Container>
