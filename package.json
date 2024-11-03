@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "npx ts-node --esm scripts/artworklistgen.ts",
     "dev": "vite",
-    "build": "npm run artworkgen && tsc && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
