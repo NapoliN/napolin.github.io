@@ -15,10 +15,6 @@ import VueIcon from "../assets/icons/vue_icon.png"
 import ReactIcon from "../assets/icons/react_icon.png"
 import PythonIcon from "../assets/icons/python_icon.png"
 import { Col, Container, Row, Card, Button } from "react-bootstrap"
-import ArtInari from "../assets/artwork/inari.png"
-import ArtAkeome2024 from "../assets/artwork/akeome2024.png"
-import ArtTomioka from "../assets/artwork/tomioka.png"
-import ArtComitia24sp from "../assets/artwork/comitia24sp.png"
 
 import Ikandemind from "../assets/works/ikandemind.png"
 import EasySummarizer from "../assets/works/easy_summarizer.png"
@@ -161,7 +157,6 @@ const Top = () => {
                         <Row>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
-                                    <img src={ArtTomioka} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.1.21</p>
                                     </Card.Footer>
@@ -169,7 +164,6 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
-                                    <img src={ArtAkeome2024} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.1.1</p>
                                     </Card.Footer>
@@ -177,7 +171,6 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
-                                    <img src={ArtInari} style={{ height: "480px" }} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2023.11.5</p>
                                     </Card.Footer>
