@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import artworkList from '../assets/artwork/list.json';
 
-const getArtworks = async (filenames: string[]) => {
+const getArtworks = async (filenames: string[]) : Promise<string[]> => {
     // すべてのファイルを動的にインポートして配列として返す
     const imagePromises = filenames.map(filename => import(`../assets/artwork/${filename.split('.')[0]}.${filename.split('.')[1]}`));
     const images = await Promise.all(imagePromises);
@@ -49,7 +49,7 @@ const cropImage = (imageSrc: string): Promise<string> => {
 };
 
 const Artworks = () => {
-    const [artworkSrcs, setArtworkSrcs] = useState([]);
+    const [artworkSrcs, setArtworkSrcs] = useState<{title: string, createdAt: string, image: string}[]>([]);
     useEffect(() => {
         const loadArtworks = async () => {
             const filenames = artworkList;
@@ -57,7 +57,7 @@ const Artworks = () => {
             return images;
         };
         loadArtworks().then((images) => {
-            return Promise.all(images.map((image, _) => { 
+            return Promise.all(images.map(image=> { 
                 return cropImage(image).then((croppedImage) => ({
                     title: getFileInfo(image).title,
                     createdAt: getFileInfo(image).createdAt,

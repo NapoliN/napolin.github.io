@@ -178,7 +178,6 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
-                                    <img src={ArtComitia24sp} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.4.29</p>
                                     </Card.Footer>
