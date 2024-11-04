@@ -88,6 +88,7 @@ const Artworks = () => {
     return (
         <div>
             <h1>Artworks</h1>
+            <div>クリックで拡大</div>
             {artworkSrcs.length > 0 ? (
                 artworkSrcs.map((src) => (
 
