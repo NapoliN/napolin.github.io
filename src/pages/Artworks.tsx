@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Modal } from "react-bootstrap"
 import artworkList from '../assets/artwork/list.json';
+import './Artworks.css'
 
 const getArtworks = async (filenames: string[]) : Promise<string[]> => {
     // すべてのファイルを動的にインポートして配列として返す
@@ -49,7 +51,7 @@ const cropImage = (imageSrc: string): Promise<string> => {
 };
 
 const Artworks = () => {
-    const [artworkSrcs, setArtworkSrcs] = useState<{title: string, createdAt: string, image: string}[]>([]);
+    const [artworkSrcs, setArtworkSrcs] = useState<{title: string, createdAt: string, src: string,trimmed: string}[]>([]);
     useEffect(() => {
         const loadArtworks = async () => {
             const filenames = artworkList;
@@ -61,7 +63,8 @@ const Artworks = () => {
                 return cropImage(image).then((croppedImage) => ({
                     title: getFileInfo(image).title,
                     createdAt: getFileInfo(image).createdAt,
-                    image: croppedImage
+                    src: image,
+                    trimmed: croppedImage
                 }));
             }));
         }).then((croppedImages) => {
@@ -69,17 +72,35 @@ const Artworks = () => {
         });
     }, []);
 
+    const [show, setShow] = useState(false);
+    const [showImg, setShowImg] = useState("");
+
+    const handleMouseEnter = (img:string) => {
+        console.log(img);
+        setShowImg(img);
+        setShow(true);
+    }
+    const handleMouseLeave = () => {
+        setShow(false);
+        setShowImg("");
+    }
+
     return (
         <div>
             <h1>Artworks</h1>
             {artworkSrcs.length > 0 ? (
                 artworkSrcs.map((src) => (
 
-                    <img key={src.createdAt} src={src.image} alt={`Artwork ${src.title}`} />
+                    <img key={src.createdAt} src={src.trimmed} alt={`Artwork ${src.title}`} onClick={() => handleMouseEnter(src.src)} className='hover-shadow'/>
                 ))
             ) : (
                 <p>Loading...</p>
             )}
+            <Modal show={show} centered onHide={handleMouseLeave}>
+                <Modal.Body>
+                    <img src={showImg} alt="Artwork" style={{width: '100%', pointerEvents: 'none' }}/>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };
