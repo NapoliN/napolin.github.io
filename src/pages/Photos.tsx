@@ -2,16 +2,6 @@ import { useEffect, useState } from 'react';
 import { Modal } from "react-bootstrap"
 import photos from "../assets/photos.json"
 
-const getPhotos = async (folder: string, filenames: string[]): Promise<{ foldername: string, filenames: string[] }> => {
-    // すべてのファイルを動的にインポートして配列として返す
-    const imagePromises = filenames.map(filename => import(`../assets/photos/${folder}/${filename.split('.')[0]}.${filename.split('.')[1]}`));
-    const images = await Promise.all(imagePromises);
-    return {
-        foldername: folder,
-        filenames: images.map(image => image.default || image).reverse()
-    } // デフォルトエクスポートを抽出
-};
-
 const getFileInfo = (filename: string) => {
     const createdAt = filename.split('_')[0];
     const title = filename.split('_')[1];
