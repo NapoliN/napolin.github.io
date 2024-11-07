@@ -10,5 +10,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ["react-icons","react-router-dom"]
-  }
+  },
+  assetsInclude: ['**/*.JPG'],
 })

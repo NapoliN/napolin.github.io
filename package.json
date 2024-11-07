@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "npx ts-node --esm scripts/artworklistgen.ts",
+    "predev": "npx ts-node --esm scripts/artworklistgen.ts && npx ts-node --esm scripts/photolistgen.ts",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
