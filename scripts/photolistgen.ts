@@ -12,17 +12,18 @@ const resizeImages = async () => {
     const resizeImage = async (inputFilePath: string, outputFilePath :string, width, height) => {
         // 画像リサイズ
         await sharp(inputFilePath)
-            .rotate()
             .resize({
                 width: width,
                 height: height,
-                fit: 'inside',
+                fit: 'fill'
             })
+            .rotate()
             .toFile(outputFilePath);
+        console.log(`Resized: ${width} ${height}`);
     }
     // ターゲットサイズ
-    const maxLongSide = 1920;
-    const maxShortSide = 1080;
+    const maxLongSide = 1800;
+    const maxShortSide = 1200;
     
     const inputDir = path.join(__dirname, '../public/photos');
     const folders = fs.readdirSync(inputDir);
@@ -38,9 +39,11 @@ const resizeImages = async () => {
             const outputFilePath = path.join(folderPath, outputFileName);
             sharp(inputFilePath).metadata().then(async (metadata) => {
                 if (metadata.width && metadata.height) {
-                    const isVertical = metadata.height > metadata.width;
+                    const isVertical = metadata.orientation === 6 || metadata.orientation === 8;
                     const requireResized = isVertical ? metadata.height > maxLongSide : metadata.width > maxLongSide;
                     if (requireResized){
+                        console.log(`width ${metadata.width} height ${metadata.height}`)
+                        console.log("isvertical " + isVertical)
                         const width = isVertical ? maxShortSide : maxLongSide;
                         const height = isVertical ? maxLongSide : maxShortSide;
                         await resizeImage(inputFilePath,outputFilePath,width,height);
