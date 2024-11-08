@@ -46,7 +46,8 @@ const Photos = () => {
     const [photoSrcs, setPhotoSrcs] = useState<{ foldername: string, files: { title: string, createdAt: string, src: string, trimmed: string }[] }[]>([]);
     useEffect(() => {
         const loadPhotos = async () => {
-            for (const folder of photos) {
+            for (let i=0; i<photos.length; i++) {
+                const folder = photos[photos.length - i - 1];
                 const foldername = folder.name;
                 await Promise.all(
                     folder.files.map(async (filename) => {
