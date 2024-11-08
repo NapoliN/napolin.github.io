@@ -3,8 +3,8 @@ import { Modal } from "react-bootstrap"
 import photos from "../assets/photos.json"
 
 const getFileInfo = (filename: string) => {
-    const createdAt = filename.split('_')[0];
-    const title = filename.split('_')[1];
+    const createdAt = filename.split('_')[2];
+    const title = filename.split('_')[2];
     return { createdAt, title };
 }
 
@@ -43,32 +43,45 @@ const cropImage = (imageSrc: string): Promise<string> => {
 };
 
 const Photos = () => {
-    const [artworkSrcs, setArtworkSrcs] = useState<{ foldername: string, files: { title: string, createdAt: string, src: string, trimmed: string }[] }[]>([]);
+    const [photoSrcs, setPhotoSrcs] = useState<{ foldername: string, files: { title: string, createdAt: string, src: string, trimmed: string }[] }[]>([]);
     useEffect(() => {
         const loadPhotos = async () => {
-            return Promise.all(photos.map(async folder => {
-                const foldername = folder.name
-                const croppeds = await Promise.all(folder.files.map(filename => {
-                    const src = `/photos/${foldername}/${filename}`
-                    return cropImage(src).then((croppedImage) => ({
-                        title: getFileInfo(src).title,
-                        createdAt: getFileInfo(src).createdAt,
-                        src: src,
-                        trimmed: croppedImage
-                    }))
-                }))
-                return {
-                    foldername: foldername,
-                    files: croppeds
-                }
-            }))
-        }
-
-        loadPhotos().then(
-            (croppedImages) => {
-                setArtworkSrcs(croppedImages);
+            for (const folder of photos) {
+                const foldername = folder.name;
+                await Promise.all(
+                    folder.files.map(async (filename) => {
+                        const src = `/photos/${foldername}/${filename}`;
+                        const croppedImage = await cropImage(src);
+                        const fileInfo = getFileInfo(src);
+                        
+                        const newFile = {
+                            title: fileInfo.title,
+                            createdAt: fileInfo.createdAt,
+                            src: src,
+                            trimmed: croppedImage
+                        };
+    
+                        // Set the new state with the loaded image data
+                        setPhotoSrcs((prev) => {
+                            // Find if the folder already exists
+                            const updatedFolders = prev.map(f => 
+                                f.foldername === foldername 
+                                    ? { ...f, files: f.files.some(file => file.createdAt === newFile.createdAt) ? f.files : [...f.files, newFile] } 
+                                    : f
+                            );
+    
+                            // If the folder doesn't exist, add a new entry
+                            if (!updatedFolders.some(f => f.foldername === foldername)) {
+                                updatedFolders.push({ foldername, files: [newFile] });
+                            }
+    
+                            return updatedFolders;
+                        });
+                    })
+                );
             }
-        );
+        };
+        loadPhotos();
     }, []);
 
     const [show, setShow] = useState(false);
@@ -88,13 +101,13 @@ const Photos = () => {
         <div>
             <h1>Photos</h1>
             <div>クリックで拡大</div>
-            {artworkSrcs.length > 0 ? (
-                artworkSrcs.map((srcs) => (
+            {photoSrcs.length > 0 ? (
+                photoSrcs.map((srcs) => (
                     <div>
                         <h2>{srcs.foldername}</h2>
                         {
                         srcs.files.map(src => (
-                            <img key={src.createdAt} src={src.trimmed} alt={`Artwork ${src.title}`} onClick={() => handleMouseEnter(src.src)} className='hover-shadow' />
+                            <img key={src.createdAt} src={src.trimmed} alt={`Photo ${src.title}`} onClick={() => handleMouseEnter(src.src)} className='hover-shadow' />
                         ))
                     }</div>
                 ))

@@ -1,25 +1,85 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import sharp from 'sharp';
 
 // __dirname の代替
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+    
 
-const directoryPath = path.join(__dirname, '../public/photos');
-const outputPath = path.join(__dirname, '../src/assets/photos.json');
+const resizeImages = async () => {
+    const resizeImage = async (inputFilePath: string, outputFilePath :string, width, height) => {
+        // 画像リサイズ
+        await sharp(inputFilePath)
+            .rotate()
+            .resize({
+                width: width,
+                height: height,
+                fit: 'inside',
+            })
+            .toFile(outputFilePath);
+    }
+    // ターゲットサイズ
+    const maxLongSide = 1920;
+    const maxShortSide = 1080;
+    
+    const inputDir = path.join(__dirname, '../public/photos');
+    const folders = fs.readdirSync(inputDir);
 
-const filelist : {name:string, files:string[]}[] = []
+    for (const folder of folders) {
+        const folderPath = path.join(inputDir, folder);
 
-fs.readdirSync(directoryPath).forEach(folder => {
-    if(folder === 'list.json') return;
-    const folderPath = path.join(directoryPath, folder);
-    const files = fs.readdirSync(folderPath).filter(file => /\.JPG$/.test(file));
-    filelist.push({
-        name: folder,
-        files: files
+        // 画像ファイルの処理
+        const files = fs.readdirSync(folderPath);
+        for (const file of files) {
+            const inputFilePath = path.join(folderPath, file);
+            const outputFileName = path.basename(inputFilePath, path.extname(inputFilePath)) + '_resized.JPG';
+            const outputFilePath = path.join(folderPath, outputFileName);
+            sharp(inputFilePath).metadata().then(async (metadata) => {
+                if (metadata.width && metadata.height) {
+                    const isVertical = metadata.height > metadata.width;
+                    const requireResized = isVertical ? metadata.height > maxLongSide : metadata.width > maxLongSide;
+                    if (requireResized){
+                        const width = isVertical ? maxShortSide : maxLongSide;
+                        const height = isVertical ? maxLongSide : maxShortSide;
+                        await resizeImage(inputFilePath,outputFilePath,width,height);
+                        fs.rmSync(inputFilePath)
+                    } 
+                }
+            })
+        }
+    }
+};
+
+const writePhotolist = () => {
+    const directoryPath = path.join(__dirname, '../public/photos');
+    const outputPath = path.join(__dirname, '../src/assets/photos.json');
+    
+    const filelist : {name:string, files:string[]}[] = []
+    
+    fs.readdirSync(directoryPath).forEach(folder => {
+        if(folder === 'list.json') return;
+        const folderPath = path.join(directoryPath, folder);
+        const files = fs.readdirSync(folderPath).filter(file => /\.JPG$/.test(file));
+        filelist.push({
+            name: folder,
+            files: files
+        })
     })
-})
+    fs.writeFileSync(outputPath, JSON.stringify(filelist, null, 2));
+}
 
-fs.writeFileSync(outputPath, JSON.stringify(filelist, null, 2));
-console.log('Filenames generated!');
+
+
+
+
+
+resizeImages()
+    .then(() => {
+        console.log('Images resized');
+        writePhotolist();
+        console.log('Filenames generated!');
+    })
+
+
