@@ -87,10 +87,16 @@ const Photos = () => {
 
     const [show, setShow] = useState(false);
     const [showImg, setShowImg] = useState("");
+    const [isHorizontal, setIsHorizontal] = useState(false);
 
-    const handleMouseEnter = (img: string) => {
-        console.log(img);
-        setShowImg(img);
+    const handleMouseEnter = (imgSrc: string) => {
+        const img = new Image();
+        img.src = imgSrc;
+  
+        img.onload = () => {
+          setIsHorizontal(img.width > img.height);
+        };
+        setShowImg(imgSrc);
         setShow(true);
     }
     const handleMouseLeave = () => {
@@ -115,7 +121,7 @@ const Photos = () => {
             ) : (
                 <p>Loading...</p>
             )}
-            <Modal show={show} centered onHide={handleMouseLeave}>
+            <Modal show={show} centered onHide={handleMouseLeave} size={isHorizontal ? 'lg' : undefined}>
                 <Modal.Body>
                     <img src={showImg} alt="Artwork" style={{ width: '100%', pointerEvents: 'none' }} />
                 </Modal.Body>
