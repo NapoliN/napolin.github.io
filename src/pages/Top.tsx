@@ -67,11 +67,6 @@ const Top = () => {
                                                     <Container>
                                                         <Row>
                                                             <Col xs="2" className="p-1">
-                                                                <a href="https://x.com/napolin_ri" target="_blank">
-                                                                    <Card.Img src={XIcon} />
-                                                                </a>
-                                                            </Col>
-                                                            <Col xs="2" className="p-1">
                                                                 <a href="https://www.pixiv.net/users/19193422" target="_blank">
                                                                     <Card.Img src={PixivIcon} />
                                                                 </a>
