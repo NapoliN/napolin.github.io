@@ -19,9 +19,14 @@ import PixivIcon from "../assets/icons/pixiv_icon.png"
 import InstagramIcon from "../assets/icons/instagram_icon.png"
 import { Col, Container, Row, Card, Button } from "react-bootstrap"
 
+import Art1 from "../assets/artwork/20241025_スマイル0円.png"
+import Art2 from "../assets/artwork/20241004_雪ミク2024.png"
+import Art3 from "../assets/artwork/20231105_稲荷神社にて.png"
+
 import Ikandemind from "../assets/works/ikandemind.png"
 import EasySummarizer from "../assets/works/easy_summarizer.png"
 import SplashLoyal from "../assets/works/splashroyal.png"
+import { Link } from "react-router-dom"
 
 const Top = () => {
     return (
@@ -62,7 +67,7 @@ const Top = () => {
                                                 <p><span className="fw-bold">FROM:</span> 北海道札幌市</p>
                                                 <p><span className="fw-bold">UNIV:</span> 東京科学大学理工学系 情報理工学院 情報工学系 修士2年</p>
                                                 <p><span className="fw-bold">COMMENT:</span> お絵かき楽しい</p>
-                                                <p className="d-flex align-items-center">
+                                                <div className="d-flex align-items-center">
                                                     <span className="fw-bold">CONTACT:</span>
                                                     <Container>
                                                         <Row>
@@ -78,7 +83,7 @@ const Top = () => {
                                                             </Col>
                                                         </Row>
                                                     </Container>
-                                                </p>
+                                                </div>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -171,25 +176,20 @@ const Top = () => {
                         </div>
                     </div>
                 </div>
-                <div style={{ minHeight: "70vh" }} className="d-flex align-items-center">
+                <div style={{ minHeight: "70vh" }} className="d-flex align-items-center my-3">
                     <Container>
                         <Row>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
+                                    <Card.Img src={Art2} />
                                     <Card.Footer>
-                                        <p className="text-end mb-0">2024.1.21</p>
+                                        <p className="text-end mb-0">2024.10.4</p>
                                     </Card.Footer>
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
-                                    <Card.Footer>
-                                        <p className="text-end mb-0">2024.1.1</p>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                    <Card.Img src={Art3}/>
                                     <Card.Footer>
                                         <p className="text-end mb-0">2023.11.5</p>
                                     </Card.Footer>
@@ -197,22 +197,26 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <Card style={{ width: "360px" }}>
+                                    <Card.Img src={Art1} />
                                     <Card.Footer>
-                                        <p className="text-end mb-0">2024.4.29</p>
+                                        <p className="text-end mb-0">2024.10.25</p>
                                     </Card.Footer>
                                 </Card>
                             </Col>
                         </Row>
                         <Row className="my-4">
                             <Col className="d-flex justify-content-end">
-                                <Button variant="outline-primary">もっと見る(準備中)</Button>
+                                <Link to="/artworks">
+                                <Button variant="outline-primary">もっと見る</Button>
+                                </Link>
+                                
                             </Col>
                         </Row>
                     </Container>
                 </div>
             </div>
             <div className="content" id="Photo">
-                <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-start">
                     <div>
                         <div className="mt-5 my-3 section">
                             <div className="py-3">
@@ -224,9 +228,47 @@ const Top = () => {
                         </div>
                     </div>
                 </div>
+                <div style={{ minHeight: "70vh" }} className="d-flex align-items-center my-3">
+                    <Container>
+                        <Row>
+                            <Col className="d-flex justify-content-center">
+                            <Card style={{ width: "360px" }}>
+                                    <Card.Img src="public/photos/2024年09月-1四国/_MG_7469_resized.JPG" />
+                                    <Card.Footer>
+                                        <p className="text-end mb-0">2024年9月 四国旅行</p>
+                                    </Card.Footer>
+                                </Card>
+                            </Col>
+                            <Col className="d-flex justify-content-center">
+                            <Card style={{ width: "360px" }}>
+                                    <Card.Img src="public/photos/2024年08月-1仙台・石巻/_MG_6544_resized.JPG" />
+                                    <Card.Footer>
+                                        <p className="text-end mb-0">2024年8月 仙台旅行</p>
+                                    </Card.Footer>
+                                </Card>
+                            </Col>
+                            <Col className="d-flex justify-content-center">
+                            <Card style={{ width: "360px" }}>
+                                    <Card.Img src="public/photos/2024年02月青森/_MG_5287_resized.JPG" />
+                                    <Card.Footer>
+                                        <p className="text-end mb-0">2024年2月 青森旅行</p>
+                                    </Card.Footer>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="my-4">
+                            <Col className="d-flex justify-content-end">
+                                <Link to="/photos">
+                                <Button variant="outline-primary">もっと見る</Button>
+                                </Link>
+                                
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
             </div>
             <div className="content" id="project">
-                <div className="d-flex justify-content-start">
+                <div className="d-flex justify-content-end">
                     <div>
                         <div className="mt-5 my-3 section">
                             <div className="py-3">

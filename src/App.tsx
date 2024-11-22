@@ -3,11 +3,12 @@ import Artworks from './pages/Artworks';
 import Top from "./pages/Top"
 import Photos from "./pages/Photos"
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
+import ScrollTop from './ScrollTop';
 
 function App() {
   return (
     <Router>
+      <ScrollTop/>
       <Routes>
         <Route path="/" element={<Top />} />
         <Route path="/artworks" element={<Artworks />} />
