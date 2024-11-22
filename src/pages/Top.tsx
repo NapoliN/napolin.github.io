@@ -232,7 +232,7 @@ const Top = () => {
                         <Row>
                             <Col className="d-flex justify-content-center">
                             <Card style={{ width: "360px" }}>
-                                    <Card.Img src="public/photos/2024年09月-1四国/_MG_7469_resized.JPG" />
+                                    <Card.Img src="/photos/2024年09月-1四国/_MG_7469_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年9月 四国旅行</p>
                                     </Card.Footer>
@@ -240,7 +240,7 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                             <Card style={{ width: "360px" }}>
-                                    <Card.Img src="public/photos/2024年08月-1仙台・石巻/_MG_6544_resized.JPG" />
+                                    <Card.Img src="/photos/2024年08月-1仙台・石巻/_MG_6544_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年8月 仙台旅行</p>
                                     </Card.Footer>
@@ -248,7 +248,7 @@ const Top = () => {
                             </Col>
                             <Col className="d-flex justify-content-center">
                             <Card style={{ width: "360px" }}>
-                                    <Card.Img src="public/photos/2024年02月青森/_MG_5287_resized.JPG" />
+                                    <Card.Img src="/photos/2024年02月青森/_MG_5287_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年2月 青森旅行</p>
                                     </Card.Footer>
