@@ -8,40 +8,6 @@ const getFileInfo = (filename: string) => {
     return { createdAt, title };
 }
 
-/**
- * 画像を切り取る関数
- * 良い感じに切り取って200x200の画像を返す
- * @param imageSrc importする画像
- * @returns 切り取った画像のデータURL
- */
-const cropImage = (imageSrc: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-
-        img.onload = () => {
-            const imgSize = img.width > img.height ? img.height : img.width;
-            const xshift = img.width > img.height ? (img.width - img.height) / 2 : 0;
-            const yshift = img.height > img.width ? (img.height - img.width) / 2 : 0;
-            const canvasSize = 200;
-            const canvas = document.createElement('canvas');
-            canvas.width = canvasSize;
-            canvas.height = canvasSize;
-            const ctx = canvas.getContext('2d');
-
-            if (ctx) {
-                ctx.drawImage(img, xshift, yshift, imgSize, imgSize, 0, 0, canvasSize, canvasSize);
-                const croppedImageData = canvas.toDataURL();
-                resolve(croppedImageData);
-            } else {
-                reject(new Error('Canvas context not available'));
-            }
-        };
-
-        img.onerror = (error) => reject(error);
-        img.src = imageSrc;
-    });
-};
-
 const Photos = () => {
     const [photoSrcs, setPhotoSrcs] = useState<{ foldername: string, files: { title: string, createdAt: string, src: string, trimmed: string }[] }[]>([]);
     useEffect(() => {
