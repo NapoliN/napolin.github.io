@@ -72,7 +72,7 @@ const Top = () => {
                                     <p className="fs-2">Research</p>
                                 </CardHeader>
                                 <Card.Body>
-                                    <p>ソフトウェア検証に関する研究を行っています。特に静的解析分野における抽象解釈という手法に興味があります。学部の頃は、Webassemblyを対象として、バイナリレベルで抽象化された中間表現から実行時の動的な振る舞いを予測できるか、というテーマで研究を行いました。</p>
+                                    <p>ソフトウェア検証に関する研究を行っています。特に静的解析分野における抽象解釈という手法に興味があります。学部の頃は、Webassemblyを対象として、バイナリレベルで抽象化された中間表現から実行時の動的な振る舞いを予測できるか、というテーマで研究を行いました。現在は、正規表現のReDoS脆弱性に関して研究を進めています。</p>
                                     <p><span className="fw-bold">Other Expertise:</span> Lambda Calculuis, Model Checking, Garbage Collection, Taint Analysis</p>
                                 </Card.Body>
                             </Card>
