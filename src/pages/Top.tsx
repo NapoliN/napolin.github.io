@@ -14,6 +14,9 @@ import TSIcon from "../assets/icons/typescript_icon.png"
 import VueIcon from "../assets/icons/vue_icon.png"
 import ReactIcon from "../assets/icons/react_icon.png"
 import PythonIcon from "../assets/icons/python_icon.png"
+import XIcon from "../assets/icons/x_icon.png"
+import PixivIcon from "../assets/icons/pixiv_icon.png"
+import InstagramIcon from "../assets/icons/instagram_icon.png"
 import { Col, Container, Row, Card, Button } from "react-bootstrap"
 
 import Ikandemind from "../assets/works/ikandemind.png"
@@ -59,7 +62,28 @@ const Top = () => {
                                                 <p><span className="fw-bold">FROM:</span> 北海道札幌市</p>
                                                 <p><span className="fw-bold">UNIV:</span> 東京科学大学理工学系 情報理工学院 情報工学系 修士2年</p>
                                                 <p><span className="fw-bold">COMMENT:</span> お絵かき楽しい</p>
-                                                <p><span className="fw-bold">CONTACT:</span>Twitter, Pixiv, Instagram</p>
+                                                <p className="d-flex align-items-center">
+                                                    <span className="fw-bold">CONTACT:</span>
+                                                    <Container>
+                                                        <Row>
+                                                            <Col xs="2" className="p-1">
+                                                                <a href="https://x.com/napolin_ri" target="_blank">
+                                                                    <Card.Img src={XIcon} />
+                                                                </a>
+                                                            </Col>
+                                                            <Col xs="2" className="p-1">
+                                                                <a href="https://www.pixiv.net/users/19193422" target="_blank">
+                                                                    <Card.Img src={PixivIcon} />
+                                                                </a>
+                                                            </Col>
+                                                            <Col xs="2" className="p-1">
+                                                                <a href="https://www.instagram.com/yuzu.sak/" target="_blank">
+                                                                    <Card.Img src={InstagramIcon} />
+                                                                </a>
+                                                            </Col>
+                                                        </Row>
+                                                    </Container>
+                                                </p>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -86,7 +110,7 @@ const Top = () => {
                                     <Container>
                                         <Row>
                                             <Col xs="4">
-                                                <Card.Img src={GithubIcon} />
+                                                <a href="https://github.com/NapoliN" target="_blank"><Card.Img src={GithubIcon} /></a>
                                             </Col>
                                             <Col>
                                                 <Container>
@@ -193,7 +217,7 @@ const Top = () => {
                 </div>
             </div>
             <div className="content" id="Photo">
-            <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-end">
                     <div>
                         <div className="mt-5 my-3 section">
                             <div className="py-3">
