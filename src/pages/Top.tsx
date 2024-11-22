@@ -192,6 +192,20 @@ const Top = () => {
                     </Container>
                 </div>
             </div>
+            <div className="content" id="Photo">
+            <div className="d-flex justify-content-end">
+                    <div>
+                        <div className="mt-5 my-3 section">
+                            <div className="py-3">
+                                <p className="fs-1 mb-0 px-5 text-white">Photo</p>
+                            </div>
+                        </div>
+                        <div className="my-3">
+                            <p className="px-5">旅行先で写真をたくさん撮ってます。使用機はCanon EOS Kiss M2です。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="content" id="project">
                 <div className="d-flex justify-content-start">
                     <div>

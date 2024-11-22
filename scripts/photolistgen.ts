@@ -35,6 +35,9 @@ const resizeImages = async () => {
         const files = fs.readdirSync(folderPath);
         for (const file of files) {
             const inputFilePath = path.join(folderPath, file);
+            // _thumbnail.JPGはskip
+            if (file.includes('thumbnail'))continue;
+            //画像の圧縮
             const outputFileName = path.basename(inputFilePath, path.extname(inputFilePath)) + '_resized.JPG';
             const outputFilePath = path.join(folderPath, outputFileName);
             sharp(inputFilePath).metadata().then(async (metadata) => {
@@ -51,6 +54,14 @@ const resizeImages = async () => {
                     } 
                 }
             })
+            //サムネの生成
+            const thumbnailFileName = path.basename(inputFilePath.replace("_resized.JPG", "_thumbnail.JPG"), path.extname(inputFilePath)) + ".JPG";
+            const thumbnailFilePath = path.join(folderPath, thumbnailFileName);
+            sharp(inputFilePath).resize({
+                width: 200,
+                height: 200,
+                fit: 'cover'
+            }).toFile(thumbnailFilePath);
         }
     }
 };
@@ -64,19 +75,14 @@ const writePhotolist = () => {
     fs.readdirSync(directoryPath).forEach(folder => {
         if(folder === 'list.json') return;
         const folderPath = path.join(directoryPath, folder);
-        const files = fs.readdirSync(folderPath).filter(file => /\.JPG$/.test(file));
+        const files = fs.readdirSync(folderPath).filter(file => /resized\.JPG$/.test(file));
         filelist.push({
             name: folder,
-            files: files
+            files: files.map(file => file.replace("_resized.JPG",""))
         })
     })
     fs.writeFileSync(outputPath, JSON.stringify(filelist, null, 2));
 }
-
-
-
-
-
 
 resizeImages()
     .then(() => {

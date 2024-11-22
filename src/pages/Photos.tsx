@@ -52,14 +52,14 @@ const Photos = () => {
                 await Promise.all(
                     folder.files.map(async (filename) => {
                         const src = `/photos/${foldername}/${filename}`;
-                        const croppedImage = await cropImage(src);
+                        //const croppedImage = await cropImage(src);
                         const fileInfo = getFileInfo(src);
                         
                         const newFile = {
                             title: fileInfo.title,
                             createdAt: fileInfo.createdAt,
-                            src: src,
-                            trimmed: croppedImage
+                            src: src+"_resized.JPG",
+                            trimmed: src+"_thumbnail.JPG"
                         };
     
                         // Set the new state with the loaded image data
