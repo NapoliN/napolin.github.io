@@ -16,6 +16,7 @@ import ReactIcon from "../assets/icons/react_icon.png"
 import PythonIcon from "../assets/icons/python_icon.png"
 import PixivIcon from "../assets/icons/pixiv_icon.png"
 import InstagramIcon from "../assets/icons/instagram_icon.png"
+import XIcon from "../assets/icons/x_icon.png"
 import { Col, Container, Row, Card, Button } from "react-bootstrap"
 
 import Art1 from "../assets/artwork/20241025_スマイル0円.png"
@@ -78,6 +79,11 @@ const Top = () => {
                                                             <Col xs="2" className="p-1">
                                                                 <a href="https://www.instagram.com/yuzu.sak/" target="_blank">
                                                                     <Card.Img src={InstagramIcon} />
+                                                                </a>
+                                                            </Col>
+                                                            <Col xs="2" className="p-1">
+                                                                <a href="https://x.com/napolin_ri" target="_blank">
+                                                                    <Card.Img src={XIcon}/>
                                                                 </a>
                                                             </Col>
                                                         </Row>
