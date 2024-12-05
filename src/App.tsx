@@ -6,7 +6,7 @@ import Note from "./pages/Note"
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollTop from './ScrollTop';
 import MarkdownViewer from './pages/Markdown';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import NoteList from "./assets/notes.json"
 
 function App() {
