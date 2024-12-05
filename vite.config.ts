@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { plugin as markdown, PluginOptions as MdOption, Mode as MdMode } from "vite-plugin-markdown"
 
 const mdOption: MdOption = {
-  mode: [MdMode.REACT, MdMode.HTML]
+  mode: [MdMode.HTML],
 }
 
 // https://vitejs.dev/config/

@@ -13,12 +13,15 @@ function App() {
   const pages = NoteList
   console.log(NoteList)
 
-  const [mds, setMds] = useState<React.FC[]>([]);
+  const [mds, setMds] = useState<string[]>([]);
   useEffect(() => {
     const loadMarkdowns = async () => {
       const importedMds = await Promise.all(
         pages.map(async (page) => {
-          const md = await import(`./notes/${page}.md`).then((module) => module.ReactComponent);
+          const md = await import(`./notes/${page}.md`).then((module) => {
+            console.log(module.html)
+            return module.html
+        });
           return md;
         })
       );
