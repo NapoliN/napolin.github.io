@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "npx tsx scripts/artworklistgen.ts && npx tsx scripts/photolistgen.ts",
+    "predev": "npx tsx scripts/artworklistgen.ts && npx tsx scripts/photolistgen.ts && npx tsx scripts/noteslistgen.ts",
     "dev": "vite",
+    "prebuild": "npx tsx scripts/artworklistgen.ts && npx tsx scripts/photolistgen.ts && npx tsx scripts/noteslistgen.ts",
     "build": "tsc && vite build",
     "lint": "npx eslint src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

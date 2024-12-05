@@ -31,6 +31,13 @@ import { Link } from "react-router-dom"
 const Top = () => {
     return (
         <div>
+            <div style={{"position":"fixed", "right":"2vw", "top":"2vh"}}>
+                <Link to={"/notes"}>
+                <Button variant="outline-primary">
+                    { "> Notes" }
+                </Button>
+                </Link>
+            </div>
             <div id="top-wrapper" className="content">
                 <div className="top-background">
                 </div>
@@ -368,6 +375,7 @@ const Top = () => {
                     </Row>
                 </Container>
             </div>
+
         </div>
     )
 }

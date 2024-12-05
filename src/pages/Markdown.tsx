@@ -1,4 +1,4 @@
-import { ReactComponent as Markdown } from '../notes/helloworld.md';
+import React from 'react';
 import { MathJax3Config, MathJaxContext } from 'better-react-mathjax';
 
 const config: MathJax3Config = {
@@ -12,11 +12,11 @@ const config: MathJax3Config = {
 };
 
 
-const MarkdownViewer = () => {
+const MarkdownViewer: React.FC<{Markdown: React.FC}> = (props) => {
   return (
     <MathJaxContext config={config}>
         <div className="markdown-body">
-            <Markdown />
+          <props.Markdown />
         </div>
     </MathJaxContext>
   );
