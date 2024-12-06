@@ -23,7 +23,7 @@ npm i -D vite-plugin-markdown
 
 ### 2. vite-env.d.tsを編集する
 `vite-env.d.ts`に以下をコピペします。これで補完・型チェックが効くようになります。
-```
+```javascript
 declare module '*.md' {
     // "unknown" would be more detailed depends on how you structure frontmatter
     const attributes: Record<string, unknown>; 
