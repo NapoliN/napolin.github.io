@@ -3,6 +3,7 @@ title: Vite + React + github.ioでmdファイルをお手軽公開
 tags:
   - "React"
   - "Programming"
+date: "2024/12/7"
 ---
 # Vite + React + github.ioでmdファイルをお手軽公開
 

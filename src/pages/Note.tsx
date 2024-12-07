@@ -1,11 +1,26 @@
+import React from 'react'
+import { Container } from "react-bootstrap"
+import { Link } from 'react-router-dom'
 
-const Note = () => {
-    return (
-        <div>
-            this is note
-            目次を書くよ～
-        </div>
-    )
+export interface NoteProps {
+    title: string,
+    tags?: string[],
+    date?: string,
+    content: string,
 }
 
-export default Note
+export const Note: React.FC<{ notes: NoteProps[] }> = (props) => {
+    return (
+        <Container>
+            <h1>目次</h1>
+            { props.notes.map((note, index) => { 
+                return (
+                    <div key={index}>
+                        <li><Link to={`./${note.title}`}>{note.title}</Link></li>
+                    </div>
+                ) 
+            })}
+
+        </Container>
+    )
+}
