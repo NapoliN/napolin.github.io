@@ -15,13 +15,10 @@ Shiki({
   md.use(highlighter)
 })
 
-
 const mdOption: MdOption = {
   mode: [MdMode.HTML],
   markdownIt: md
 }
-
-
 
 // https://vitejs.dev/config/
 export default defineConfig({
