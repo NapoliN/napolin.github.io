@@ -4,6 +4,7 @@ import { plugin as markdown, PluginOptions as MdOption, Mode as MdMode } from "v
 import Shiki from '@shikijs/markdown-it'
 import MarkdownIt from 'markdown-it'
 import MarkdownItContainer from 'markdown-it-container'
+import { Plugin } from "./md-graphviz"
 
 const md = MarkdownIt()
 
@@ -37,6 +38,8 @@ containers.forEach((container) => {
     },
   });
 });
+
+md.use(Plugin)
 
 const mdOption: MdOption = {
   mode: [MdMode.HTML],
