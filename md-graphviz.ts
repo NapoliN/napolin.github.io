@@ -8,7 +8,6 @@ export const Plugin = (md: MarkdownIt) => {
         const startPos = state.bMarks[startLine] + state.tShift[startLine];
         const maxPos = state.eMarks[startLine];
         const marker = state.src.slice(startPos, maxPos).trim();
-        console.log("aaaaaaaaaa:"+ marker)
         if (!/:::\s*dot/.test(marker)) return false;
 
         if (silent) return true;
