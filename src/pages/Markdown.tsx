@@ -19,25 +19,33 @@ const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
   useEffect(() => {
     let result = props.Markdown
     const convertSvg = async () => {
-      const graphviz = await Graphviz.load();
       const matches = result.matchAll(/graphvizcontent\{\{(.*?)\}\}graphvizcontent/gs).toArray();
+      if (matches.length === 0) {
+        sethtml(result);
+        return;
+      }
 
-      const replace = await Promise.all(
-        matches.map(async (match) => {
-          const content = match[1];
-          return graphviz.dot(content, "svg");
-        })
-      );
-      matches.forEach((match,idx) => {
-        result = result.replace(match[0], replace[idx])
+      Graphviz.load().then((graphviz) => {
+        return Promise.all(
+          matches.map(async (match) => {
+            const content = match[1];
+            return graphviz.dot(content, "svg");
+          })
+        );
+      }).then((svgs) => {
+        svgs.forEach((svg, idx) => {
+          result = result.replace(matches[idx][0], svg);
+        });
+        sethtml(result);
+      }).finally(() => {
+        Graphviz.unload();
       })
-      sethtml(result);
-      
     }
     convertSvg();
-  },[])
+  }, [])
   return (
     <MathJaxContext config={config}>
+      $$\int_0^\infty x^2 dx$$
       <div className="markdown-top">
         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }}>
         </div>
