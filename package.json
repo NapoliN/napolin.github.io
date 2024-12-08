@@ -16,6 +16,7 @@
     "better-react-mathjax": "^2.0.4-beta1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "markdown-it-container": "^4.0.0",
     "mathjax": "^3.2.2",
     "react": "^18.2.0",
     "react-anchor-link-smooth-scroll": "^1.0.12",
