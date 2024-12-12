@@ -76,7 +76,6 @@ const Artworks = () => {
     const [showImg, setShowImg] = useState("");
 
     const handleMouseEnter = (img:string) => {
-        console.log(img);
         setShowImg(img);
         setShow(true);
     }

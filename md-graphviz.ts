@@ -40,7 +40,6 @@ export const Plugin = (md: MarkdownIt) => {
 
     md.renderer.rules['dot_fence'] = (tokens, idx) => {
         const content = tokens[idx].content;
-        console.log(content);
         return `graphvizcontent\{\{${content}\}\}graphvizcontent\n`;
     };
 };
