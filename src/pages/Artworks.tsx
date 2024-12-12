@@ -11,8 +11,10 @@ const getArtworks = async (filenames: string[]) : Promise<string[]> => {
 };
 
 const getFileInfo = (filename: string) => {
-    const createdAt = filename.split('_')[0];
-    const title = filename.split('_')[1];
+    const createdAtRaw = filename.split('_')[0].slice(-8);
+    //yyyymmddがfmt yyyy/mm/ddに変換
+    const createdAt = createdAtRaw.slice(0,4) + '/' + createdAtRaw.slice(4,6) + '/' + createdAtRaw.slice(6,8);
+    const title = filename.split('_')[1].slice(0,-4);
     return {createdAt, title};
 }
 
@@ -50,8 +52,15 @@ const cropImage = (imageSrc: string): Promise<string> => {
     });
 };
 
+interface ArtworkInfo {
+    title: string;
+    createdAt: string;
+    src: string;
+    trimmed: string;
+}
+
 const Artworks = () => {
-    const [artworkSrcs, setArtworkSrcs] = useState<{title: string, createdAt: string, src: string,trimmed: string}[]>([]);
+    const [artworkSrcs, setArtworkSrcs] = useState<ArtworkInfo[]>([]);
     useEffect(() => {
         const loadArtworks = async () => {
             const filenames = artworkList;
@@ -73,15 +82,20 @@ const Artworks = () => {
     }, []);
 
     const [show, setShow] = useState(false);
-    const [showImg, setShowImg] = useState("");
+    const [artInfo, setArtInfo] = useState({
+        title: "",
+        createdAt: "",
+        src: "",
+        trimmed: ""
+    });
 
-    const handleMouseEnter = (img:string) => {
-        setShowImg(img);
+    const handleMouseEnter = (artInfo: ArtworkInfo) => {
+        setArtInfo(artInfo);
         setShow(true);
     }
     const handleMouseLeave = () => {
         setShow(false);
-        setShowImg("");
+        //setShowImg("");
     }
 
     return (
@@ -91,15 +105,19 @@ const Artworks = () => {
             {artworkSrcs.length > 0 ? (
                 artworkSrcs.map((src) => (
 
-                    <img key={src.createdAt} src={src.trimmed} alt={`Artwork ${src.title}`} onClick={() => handleMouseEnter(src.src)} className='hover-shadow'/>
+                    <img key={src.createdAt} src={src.trimmed} alt={`Artwork ${src.title}`} onClick={() => handleMouseEnter(src)} className='hover-shadow'/>
                 ))
             ) : (
                 <p>Loading...</p>
             )}
             <Modal show={show} centered onHide={handleMouseLeave}>
                 <Modal.Body>
-                    <img src={showImg} alt="Artwork" style={{width: '100%', pointerEvents: 'none' }}/>
+                    <img src={artInfo.src} alt="Artwork" style={{width: '100%', pointerEvents: 'none' }}/>
                 </Modal.Body>
+                <Modal.Footer>
+                    <p>{artInfo.title}</p>
+                    <p>{artInfo.createdAt}</p>
+                </Modal.Footer>
             </Modal>
         </div>
     );
