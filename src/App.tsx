@@ -11,6 +11,7 @@ import { Note, NoteProps } from "./pages/Note"
 
 function App() {
   const pages = NoteList
+  
 
   const [mds, setMds] = useState<NoteProps[]>([]);
 

@@ -14,6 +14,7 @@ const config: MathJax3Config = {
 };
 
 
+
 const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
   const [html, sethtml] = useState("")
   useEffect(() => {
@@ -45,7 +46,6 @@ const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
   }, [])
   return (
     <MathJaxContext config={config}>
-      $$\int_0^\infty x^2 dx$$
       <div className="markdown-top">
         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }}>
         </div>
