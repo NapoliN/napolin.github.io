@@ -1,6 +1,7 @@
 ---
 title: GarbageCollection入門
 tags: GarbageCollection
+date: 2024/12/15
 ---
 
 # GarbageCollection入門(編集中)

@@ -1,7 +1,9 @@
 import "./Markdown.css";
 import React, { useEffect, useState } from 'react';
-import { MathJax3Config, MathJaxContext } from 'better-react-mathjax';
+import { MathJax3Config, MathJaxContext, MathJax } from 'better-react-mathjax';
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
+import { Button } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 
 const config: MathJax3Config = {
   tex: {
@@ -13,9 +15,8 @@ const config: MathJax3Config = {
   }
 };
 
-
-
 const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
+
   const [html, sethtml] = useState("")
   useEffect(() => {
     let result = props.Markdown
@@ -45,11 +46,16 @@ const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
     convertSvg();
   }, [])
   return (
+    
     <MathJaxContext config={config}>
+      <Link to="../notes"><Button variant="primary">目次へ戻る</Button></Link>
+      <MathJax>
       <div className="markdown-top">
         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }}>
         </div>
       </div>
+      </MathJax>
+
     </MathJaxContext>
   );
 };

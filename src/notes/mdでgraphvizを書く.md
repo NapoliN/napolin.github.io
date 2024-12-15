@@ -1,5 +1,6 @@
 ---
 title: mdでgraphvizを使ってグラフを書く
+date: 2024/12/8
 ---
 # mdでgraphvizを使ってグラフを描く
 
