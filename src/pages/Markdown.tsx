@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { MathJax3Config, MathJaxContext, MathJax } from 'better-react-mathjax';
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import { Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const config: MathJax3Config = {
   tex: {
