@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Modal } from "react-bootstrap"
+import { Modal } from "react-bootstrap";
 import artworkList from '../assets/artwork/list.json';
-import './Artworks.css'
+import './Artworks.css';
 
-const getArtworks = async (filenames: string[]) : Promise<string[]> => {
-    // すべてのファイルを動的にインポートして配列として返す
-    const imagePromises = filenames.map(filename => import(`../assets/artwork/${filename.split('.')[0]}.${filename.split('.')[1]}`));
-    const images = await Promise.all(imagePromises);
-    return images.map(image => image.default || image).reverse(); // デフォルトエクスポートを抽出
+const getArtworks = async (filename: string): Promise<string> => {
+    // ファイルを動的にインポート
+    const image = await import(`../assets/artwork/${filename.split('.')[0]}.${filename.split('.')[1]}`);
+    return image.default || image; // デフォルトエクスポートを抽出
 };
 
 const getFileInfo = (filename: string) => {
     const createdAtRaw = filename.split('_')[0].slice(-8);
-    //yyyymmddがfmt yyyy/mm/ddに変換
-    const createdAt = createdAtRaw.slice(0,4) + '/' + createdAtRaw.slice(4,6) + '/' + createdAtRaw.slice(6,8);
-    const title = filename.split('_')[1].slice(0,-4);
-    return {createdAt, title};
-}
+    // yyyymmddがfmt yyyy/mm/ddに変換
+    const createdAt = createdAtRaw.slice(0, 4) + '/' + createdAtRaw.slice(4, 6) + '/' + createdAtRaw.slice(6, 8);
+    const title = filename.split('_')[1].slice(0, -4);
+    return { createdAt, title };
+};
 
 /**
  * 画像を切り取る関数
@@ -61,62 +60,77 @@ interface ArtworkInfo {
 
 const Artworks = () => {
     const [artworkSrcs, setArtworkSrcs] = useState<ArtworkInfo[]>([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const loadArtworks = async () => {
-            const filenames = artworkList;
-            const images = await getArtworks(filenames);
-            return images;
+
+            const rev = artworkList.toReversed()
+            for (const filename of rev) {
+                try {
+                    const src = await getArtworks(filename);
+                    const croppedImage = await cropImage(src);
+                    const fileInfo = getFileInfo(filename);
+                    // 逐次的に状態を更新
+                    setArtworkSrcs((prev) =>  prev.some((artwork) => artwork.title === fileInfo.title) ? prev : [
+                        ...prev,
+                        {
+                            title: fileInfo.title,
+                            createdAt: fileInfo.createdAt,
+                            src,
+                            trimmed: croppedImage,
+                        },
+                    ]);
+                } catch (error) {
+                    console.error(`Error loading image ${filename}:`, error);
+                }
+            }
+            setLoading(false); // 全画像読み込み完了時にフラグを更新
         };
-        loadArtworks().then((images) => {
-            return Promise.all(images.map(image=> { 
-                return cropImage(image).then((croppedImage) => ({
-                    title: getFileInfo(image).title,
-                    createdAt: getFileInfo(image).createdAt,
-                    src: image,
-                    trimmed: croppedImage
-                }));
-            }));
-        }).then((croppedImages) => {
-            setArtworkSrcs(croppedImages);
-        });
+
+        loadArtworks();
     }, []);
 
     const [show, setShow] = useState(false);
-    const [artInfo, setArtInfo] = useState({
-        title: "",
-        createdAt: "",
-        src: "",
-        trimmed: ""
-    });
+    const [artInfo, setArtInfo] = useState<ArtworkInfo | null>(null);
 
     const handleMouseEnter = (artInfo: ArtworkInfo) => {
         setArtInfo(artInfo);
         setShow(true);
-    }
+    };
+
     const handleMouseLeave = () => {
         setShow(false);
-        //setShowImg("");
-    }
+        setArtInfo(null);
+    };
 
     return (
         <div>
             <h1>Artworks</h1>
             <div>クリックで拡大</div>
-            {artworkSrcs.length > 0 ? (
-                artworkSrcs.map((src) => (
-
-                    <img key={src.createdAt} src={src.trimmed} alt={`Artwork ${src.title}`} onClick={() => handleMouseEnter(src)} className='hover-shadow'/>
-                ))
-            ) : (
-                <p>Loading...</p>
-            )}
+            {loading && artworkSrcs.length === 0 && <p>Loading...</p>}
+            <div className="artwork-grid">
+                {artworkSrcs.map((src, index) => (
+                    <img
+                        key={index}
+                        src={src.trimmed}
+                        alt={`Artwork ${src.title}`}
+                        onClick={() => handleMouseEnter(src)}
+                        className="hover-shadow"
+                    />
+                ))}
+            </div>
             <Modal show={show} centered onHide={handleMouseLeave}>
                 <Modal.Body>
-                    <img src={artInfo.src} alt="Artwork" style={{width: '100%', pointerEvents: 'none' }}/>
+                    {artInfo && <img src={artInfo.src} alt="Artwork" style={{ width: '100%', pointerEvents: 'none' }} />}
                 </Modal.Body>
                 <Modal.Footer>
-                    <p>{artInfo.title}</p>
-                    <p>{artInfo.createdAt}</p>
+                    {artInfo && (
+                        <>
+                            <p>{artInfo.title}</p>
+                            <p>{artInfo.createdAt}</p>
+                        </>
+                    )}
                 </Modal.Footer>
             </Modal>
         </div>
