@@ -17,6 +17,7 @@ import PythonIcon from "../assets/icons/python_icon.png"
 import PixivIcon from "../assets/icons/pixiv_icon.png"
 import InstagramIcon from "../assets/icons/instagram_icon.png"
 import XIcon from "../assets/icons/x_icon.png"
+import MailIcon from "../assets/icons/gmail_icon.svg"
 import { Col, Container, Row, Card, Button } from "react-bootstrap"
 
 import Art1 from "../assets/artwork/20241025_スマイル0円.png"
@@ -91,6 +92,11 @@ const Top = () => {
                                                             <Col xs="2" className="p-1">
                                                                 <a href="https://x.com/napolin_ri" target="_blank">
                                                                     <Card.Img src={XIcon}/>
+                                                                </a>
+                                                            </Col>
+                                                            <Col xs="2" className="p-1">
+                                                                <a href="mailto:sakcitrus12@gmail.com">
+                                                                    <Card.Img src={MailIcon}/>
                                                                 </a>
                                                             </Col>
                                                         </Row>
