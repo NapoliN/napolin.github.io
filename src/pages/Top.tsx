@@ -74,7 +74,9 @@ const Top = () => {
                                             <Col>
                                                 <p><span className="fw-bold">FROM:</span> 北海道札幌市</p>
                                                 <p><span className="fw-bold">UNIV:</span> 東京科学大学理工学系 情報理工学院 情報工学系 修士2年</p>
-                                                <p><span className="fw-bold">COMMENT:</span> お絵かき楽しい</p>
+                                                <p><span className="fw-bold">COMMENT:</span> 
+                                                連絡先聞いとけばよかった<br/>
+                                                気が向いたらメールください</p>
                                                 <div className="d-flex align-items-center">
                                                     <span className="fw-bold">CONTACT:</span>
                                                     <Container>
