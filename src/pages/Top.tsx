@@ -59,7 +59,7 @@ const Top = () => {
                     </div>
                 </div>
                 <Container className="h-100">
-                    <Row className="mt-10">
+                    <Row className="mt-10 px-1">
                         <Col lg="6">
                             <Card className="m-2 profile-card">
                                 <CardHeader>
@@ -128,37 +128,43 @@ const Top = () => {
                                 </CardHeader>
                                 <Card.Body>
                                     <Container>
-                                        <Row>
-                                            <Col xs="4">
+                                        <Row className="align-items-center">
+                                            <Col xs="4" className="p-0">
                                                 <a href="https://github.com/NapoliN" target="_blank"><Card.Img src={GithubIcon} /></a>
                                             </Col>
-                                            <Col>
+                                            <Col className="pl-2 pr-0">
                                                 <Container>
                                                     <Row>
+                                                        <Col xs="3">
+                                                            <p className="fw-bold">Certs</p>
+                                                        </Col>
                                                         <Col>
-                                                            <p className="fw-bold">Unity (C#)</p>
-                                                            <p className="fw-bold">Typescript (Vue, React)</p>
-                                                            <p className="fw-bold">Python</p>
+                                                            <p>応用情報処理技術者('22秋)</p>
+                                                            <p>DBスペシャリスト('24秋) <span style={{color:"red",fontSize:"9px"}} >NEW!</span></p>
                                                         </Col>
                                                     </Row>
                                                     <Row>
-                                                        <Col xs="2">
-                                                            <Card.Img src={UnityIcon} />
+                                                        <Col xs="3">
+                                                        <p className="fw-bold">Langs</p>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={CsharpIcon} />
+                                                        
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={UnityIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={TSIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={CsharpIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={VueIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={TSIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={ReactIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={VueIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={PythonIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={ReactIcon} className="my-1"/>
+                                                        </Col>
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={PythonIcon} className="my-1"/>
                                                         </Col>
                                                     </Row>
                                                 </Container>
@@ -200,7 +206,7 @@ const Top = () => {
                     <Container>
                         <Row>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art2} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.10.4</p>
@@ -208,7 +214,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art3}/>
                                     <Card.Footer>
                                         <p className="text-end mb-0">2023.11.5</p>
@@ -216,7 +222,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art1} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.10.25</p>
@@ -252,7 +258,7 @@ const Top = () => {
                     <Container>
                         <Row>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年09月-1四国/_MG_7469_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年9月 四国旅行</p>
@@ -260,7 +266,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年08月-1仙台・石巻/_MG_6544_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年8月 仙台旅行</p>
@@ -268,7 +274,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年02月青森/_MG_5287_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年2月 青森旅行</p>
