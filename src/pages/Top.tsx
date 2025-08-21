@@ -59,7 +59,7 @@ const Top = () => {
                     </div>
                 </div>
                 <Container className="h-100">
-                    <Row className="mt-10">
+                    <Row className="mt-10 px-1">
                         <Col lg="6">
                             <Card className="m-2 profile-card">
                                 <CardHeader>
@@ -75,8 +75,7 @@ const Top = () => {
                                                 <p><span className="fw-bold">FROM:</span> 北海道札幌市</p>
                                                 <p><span className="fw-bold">UNIV:</span> 東京科学大学理工学系 情報理工学院 情報工学系 修士2年</p>
                                                 <p><span className="fw-bold">COMMENT:</span> 
-                                                連絡先聞いとけばよかった<br/>
-                                                気が向いたらメールください</p>
+                                                卒業確定しました～</p>
                                                 <div className="d-flex align-items-center">
                                                     <span className="fw-bold">CONTACT:</span>
                                                     <Container>
@@ -116,7 +115,7 @@ const Top = () => {
                                     <p className="fs-2">Research</p>
                                 </CardHeader>
                                 <Card.Body>
-                                    <p>ソフトウェア検証に関する研究を行っています。特に静的解析分野における抽象解釈という手法に興味があります。学部の頃は、Webassemblyを対象として、バイナリレベルで抽象化された中間表現から実行時の動的な振る舞いを予測できるか、というテーマで研究を行いました。現在は、正規表現のReDoS脆弱性に関して研究を進めています。</p>
+                                    <p>ソフトウェア検証に関する研究を行っていました。修士課程の研究では、正規表現で発生するReDoS脆弱性を効果的に検出することを目標としたツール"ReGenerator"を開発しました。</p>
                                     <p><span className="fw-bold">Other Expertise:</span> Lambda Calculuis, Model Checking, Garbage Collection, Taint Analysis</p>
                                 </Card.Body>
                             </Card>
@@ -128,37 +127,43 @@ const Top = () => {
                                 </CardHeader>
                                 <Card.Body>
                                     <Container>
-                                        <Row>
-                                            <Col xs="4">
+                                        <Row className="align-items-center">
+                                            <Col xs="4" className="p-0">
                                                 <a href="https://github.com/NapoliN" target="_blank"><Card.Img src={GithubIcon} /></a>
                                             </Col>
-                                            <Col>
+                                            <Col className="pl-2 pr-0">
                                                 <Container>
                                                     <Row>
+                                                        <Col xs="3">
+                                                            <p className="fw-bold">Certs</p>
+                                                        </Col>
                                                         <Col>
-                                                            <p className="fw-bold">Unity (C#)</p>
-                                                            <p className="fw-bold">Typescript (Vue, React)</p>
-                                                            <p className="fw-bold">Python</p>
+                                                            <p>応用情報処理技術者('22秋)</p>
+                                                            <p>DBスペシャリスト('24秋) <span style={{color:"red",fontSize:"9px"}} >NEW!</span></p>
                                                         </Col>
                                                     </Row>
                                                     <Row>
-                                                        <Col xs="2">
-                                                            <Card.Img src={UnityIcon} />
+                                                        <Col xs="3">
+                                                        <p className="fw-bold">Langs</p>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={CsharpIcon} />
+                                                        
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={UnityIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={TSIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={CsharpIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={VueIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={TSIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={ReactIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={VueIcon} className="my-1"/>
                                                         </Col>
-                                                        <Col xs="2">
-                                                            <Card.Img src={PythonIcon} />
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={ReactIcon} className="my-1"/>
+                                                        </Col>
+                                                        <Col xs="1" className="p-0">
+                                                            <Card.Img src={PythonIcon} className="my-1"/>
                                                         </Col>
                                                     </Row>
                                                 </Container>
@@ -200,7 +205,7 @@ const Top = () => {
                     <Container>
                         <Row>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art2} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.10.4</p>
@@ -208,7 +213,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art3}/>
                                     <Card.Footer>
                                         <p className="text-end mb-0">2023.11.5</p>
@@ -216,7 +221,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                                <Card style={{ width: "360px" }}>
+                                <Card style={{ width: "300px" }}>
                                     <Card.Img src={Art1} />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024.10.25</p>
@@ -252,7 +257,7 @@ const Top = () => {
                     <Container>
                         <Row>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年09月-1四国/_MG_7469_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年9月 四国旅行</p>
@@ -260,7 +265,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年08月-1仙台・石巻/_MG_6544_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年8月 仙台旅行</p>
@@ -268,7 +273,7 @@ const Top = () => {
                                 </Card>
                             </Col>
                             <Col className="d-flex justify-content-center">
-                            <Card style={{ width: "360px" }}>
+                            <Card style={{ width: "300px" }}>
                                     <Card.Img src="/photos/2024年02月青森/_MG_5287_resized.JPG" />
                                     <Card.Footer>
                                         <p className="text-end mb-0">2024年2月 青森旅行</p>
