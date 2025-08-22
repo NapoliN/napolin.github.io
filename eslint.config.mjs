@@ -15,6 +15,10 @@ const compat = new FlatCompat({
     allConfig: js.configs.all
 });
 
+const browserGlobals = Object.fromEntries(
+    Object.entries(globals.browser).map(([k, v]) => [k.trim(), v])
+);
+
 export default [...fixupConfigRules(compat.extends(
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -26,7 +30,7 @@ export default [...fixupConfigRules(compat.extends(
 
     languageOptions: {
         globals: {
-            ...globals.browser,
+            ...browserGlobals,
         },
 
         parser: tsParser,

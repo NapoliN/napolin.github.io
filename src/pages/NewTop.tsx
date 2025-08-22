@@ -1,12 +1,21 @@
 // PixelSplitLanding.tsx  (PixiJS v8 + external CSS)
 import React, { useEffect, useRef, useState } from "react";
-import { Application, Assets, Sprite, TextureStyle, Graphics } from "pixi.js";
+import { Application, Assets, Sprite, TextureStyle, Graphics, type IHitArea } from "pixi.js";
 import "./NewTop.css";
 
 type Props = {
   imageUrl?: string;               // 例: "/pixel/hero256.png"（原寸256x256）
   links?: { label: string; href: string }[];
   bg?: string;                     // 背景色（必要なら）
+};
+
+type DotParticle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  age: number;
+  life: number;
 };
 
 export default function PixelSplitLanding({
@@ -23,6 +32,121 @@ export default function PixelSplitLanding({
   const resizeCleanupRef = useRef<(() => void) | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [awaitingPress, setAwaitingPress] = useState(false);
+  const titleCanvasRef = useRef<HTMLCanvasElement>(null);
+  const titleParticlesRef = useRef<DotParticle[]>([]);
+  const explodeAnimRef = useRef<number | null>(null);
+  const revealAnimRef = useRef<number | null>(null);
+  const revealXRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = titleCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    if (!awaitingPress) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (revealAnimRef.current) {
+        cancelAnimationFrame(revealAnimRef.current);
+        revealAnimRef.current = null;
+      }
+      return;
+    }
+
+    const text = "Napolin's Lab";
+    const fontSize = 128;
+    const off = document.createElement("canvas");
+    const offCtx = off.getContext("2d")!;
+    offCtx.font = `${fontSize}px 'DotGothic16'`;
+    const metrics = offCtx.measureText(text);
+    off.width = Math.ceil(metrics.width);
+    off.height = Math.ceil(fontSize * 1.2);
+    offCtx.font = `${fontSize}px 'DotGothic16'`;
+    offCtx.fillStyle = "#fff";
+    offCtx.fillText(text, 0, fontSize);
+    const data = offCtx.getImageData(0, 0, off.width, off.height).data;
+    canvas.width = off.width;
+    canvas.height = off.height;
+    const pts: DotParticle[] = [];
+    const step = 4;
+    for (let y = 0; y < off.height; y += step) {
+      for (let x = 0; x < off.width; x += step) {
+        if (data[(y * off.width + x) * 4 + 3] > 128) {
+          pts.push({ x, y, vx: 0, vy: 0, age: 0, life: 0 });
+        }
+      }
+    }
+    titleParticlesRef.current = pts;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    revealXRef.current = 0;
+    const duration = 1500;
+    const t0 = performance.now();
+    const stepDraw = () => {
+      const now = performance.now();
+      const progress = Math.min(1, (now - t0) / duration);
+      revealXRef.current = progress * canvas.width;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of pts) {
+        if (p.x <= revealXRef.current) {
+          ctx.fillStyle = "#e6e6e6";
+          ctx.fillRect(p.x, p.y, 3, 3);
+        }
+      }
+      if (progress < 1) {
+        revealAnimRef.current = requestAnimationFrame(stepDraw);
+      }
+    };
+    stepDraw();
+
+    return () => {
+      if (revealAnimRef.current) {
+        cancelAnimationFrame(revealAnimRef.current);
+        revealAnimRef.current = null;
+      }
+    };
+  }, [awaitingPress]);
+
+  const explodeTitle = (after: () => void) => {
+    const canvas = titleCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) { after(); return; }
+    if (revealAnimRef.current) {
+      cancelAnimationFrame(revealAnimRef.current);
+      revealAnimRef.current = null;
+    }
+    const visible = titleParticlesRef.current.filter(
+      (p) => p.x <= revealXRef.current,
+    );
+    const parts = visible.map((p) => ({
+      ...p,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      life: 60 + Math.random() * 30,
+      age: 0,
+    }));
+    titleParticlesRef.current = parts;
+    const step = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      for (const p of parts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.1;
+        p.age++;
+        if (p.age < p.life) {
+          alive = true;
+          ctx.fillStyle = "#e6e6e6";
+          ctx.fillRect(p.x, p.y, 3, 3);
+        }
+      }
+      if (alive) {
+        explodeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        after();
+      }
+    };
+    step();
+  };
 
   useEffect(() => {
     let disposed = false; // StrictMode二重実行対策
@@ -83,7 +207,7 @@ export default function PixelSplitLanding({
 
       // ===== ローディング（3s）：横幅80%の水平ラインを粒子で描画 =====
       const LOADER_MS = 3000;
-      let loaderStart = performance.now();
+      const loaderStart = performance.now();
       let loaderDone = false;
       let loaderParticles: { x:number;y:number;vx:number;vy:number;age:number;life:number }[] = [];
       let lastHead: { i:number; j:number } | null = null;
@@ -159,13 +283,15 @@ export default function PixelSplitLanding({
           if (!pressArmed) {
             pressArmed = true;
             const reveal = () => {
-              setAwaitingPress(false);
-              screenGrid.visible = true;
-              sprite.visible = true;
-              interactionEnabled = true;
-              setIsLoaded(true);
               if (onAnyKey) { window.removeEventListener("keydown", onAnyKey); onAnyKey = null; }
               if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer); onAnyPointer = null; }
+              explodeTitle(() => {
+                setAwaitingPress(false);
+                screenGrid.visible = true;
+                sprite.visible = true;
+                interactionEnabled = true;
+                setIsLoaded(true);
+              });
             };
             onAnyKey = () => reveal();
             onAnyPointer = () => reveal();
@@ -180,7 +306,7 @@ export default function PixelSplitLanding({
 
       // ===== 画像のアルファに沿ったホバー判定＋左右スウェイ =====
       let alphaData: Uint8ClampedArray | null = null;
-      const res: any = (tex.source as any).resource;
+      const res = (tex.source as { resource?: { source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement } }).resource;
       const srcEl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | undefined = res?.source;
       const texW = tex.source.width ?? 256;
       const texH = tex.source.height ?? 256;
@@ -203,7 +329,7 @@ export default function PixelSplitLanding({
         return alphaData[(ay * texW + ax) * 4 + 3] > 16;
       };
 
-      sprite.hitArea = { contains: alphaContains as any };
+      sprite.hitArea = { contains: alphaContains } as IHitArea;
       sprite.eventMode = "static";
       sprite.cursor = "pointer";
 
@@ -370,20 +496,24 @@ export default function PixelSplitLanding({
       appRef.current = null;
       if (app) {
         if (onPointerMoveHandler) {
-          app.canvas.removeEventListener("pointermove", onPointerMoveHandler as any);
+          app.canvas.removeEventListener("pointermove", onPointerMoveHandler);
           onPointerMoveHandler = null;
         }
         if (onPointerEndHandler) {
-          app.canvas.removeEventListener("pointerup", onPointerEndHandler as any);
-          app.canvas.removeEventListener("pointerleave", onPointerEndHandler as any);
-          app.canvas.removeEventListener("pointercancel", onPointerEndHandler as any);
+          app.canvas.removeEventListener("pointerup", onPointerEndHandler);
+          app.canvas.removeEventListener("pointerleave", onPointerEndHandler);
+          app.canvas.removeEventListener("pointercancel", onPointerEndHandler);
           onPointerEndHandler = null;
         }
-        if (onAnyKey) { window.removeEventListener("keydown", onAnyKey as any); onAnyKey = null; }
-        if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer as any); onAnyPointer = null; }
+        if (onAnyKey) { window.removeEventListener("keydown", onAnyKey); onAnyKey = null; }
+        if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer); onAnyPointer = null; }
         const canvas = app.canvas as unknown as HTMLCanvasElement | undefined;
         if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
         app.destroy();
+      }
+      if (explodeAnimRef.current) {
+        cancelAnimationFrame(explodeAnimRef.current);
+        explodeAnimRef.current = null;
       }
     };
   }, [imageUrl]);
@@ -393,7 +523,7 @@ export default function PixelSplitLanding({
       {/* PRESS ANY BUTTON overlay */}
       {awaitingPress && (
         <div className="px-press-overlay">
-          <div className="px-title">Napolin's Lab</div>
+          <canvas ref={titleCanvasRef} className="px-title-canvas" />
           <div className="px-press-label">PRESS ANY BUTTON</div>
         </div>
       )}
@@ -415,7 +545,7 @@ export default function PixelSplitLanding({
 // グリッド上で2点を結ぶ離散直線（Bresenham）
 function rasterLine(i0:number, j0:number, i1:number, j1:number){
   const pts: {i:number;j:number}[] = [];
-  let x0=i0, y0=j0, x1=i1, y1=j1;
+  let x0=i0, y0=j0; const x1=i1, y1=j1;
   const dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
   const sx = x0 < x1 ? 1 : -1;
   const sy = y0 < y1 ? 1 : -1;
