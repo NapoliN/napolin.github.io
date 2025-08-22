@@ -185,7 +185,8 @@ export default function PixelSplitLanding({
       const sprite = new Sprite(tex);
       sprite.anchor.set(0.5);
       app.stage.addChild(sprite);
-      sprite.visible = false;
+      // アニメ開始までは透明にしておく（ヒットテスト用に表示状態は維持）
+      sprite.alpha = 0;
 
       // グリッド（縦512/横256）
       const screenGrid = new Graphics();
@@ -293,8 +294,6 @@ export default function PixelSplitLanding({
                 setAwaitingPress(false);
                 screenGrid.visible = true;
                 startReveal().then(() => {
-                  sprite.visible = true;
-                  sprite.alpha = 1;
                   interactionEnabled = true;
                   setIsLoaded(true);
                 });
@@ -330,42 +329,62 @@ export default function PixelSplitLanding({
 
       const startReveal = () => new Promise<void>((resolve) => {
         if (!imgData) { resolve(); return; }
-        const parts: { x0:number; y0:number; tx:number; ty:number; age:number; life:number; color:number }[] = [];
+        type Drop = { x:number; y:number; vx:number; vy:number; tx:number; ty:number; color:number; settled:boolean };
+        const drops: Drop[] = [];
         for (let y = 0; y < texH; y++) {
           for (let x = 0; x < texW; x++) {
             const idx = (y * texW + x) * 4;
             const a = imgData[idx + 3];
             if (a > 16) {
               const color = (imgData[idx] << 16) | (imgData[idx + 1] << 8) | imgData[idx + 2];
-              parts.push({
-                x0: Math.random() * texW,
-                y0: -Math.random() * texH * 0.5,
+              const x0 = texW / 2 + (Math.random() - 0.5) * texW;
+              const y0 = -Math.random() * texH;
+              drops.push({
+                x: x0,
+                y: y0,
+                vx: (x - x0) / 2, // 2秒程度で横位置へ到達
+                vy: 0,
                 tx: x,
                 ty: y,
-                age: 0,
-                life: 2000,
                 color,
+                settled: false,
               });
             }
           }
         }
         revealFx.visible = true;
+        const g = texH * 0.75; // 重力加速度(px/s^2)
         const step = () => {
+          const dt = app.ticker.deltaMS / 1000;
+          let allSettled = true;
           revealFx.clear();
-          let done = true;
-          const dt = app.ticker.deltaMS;
-          for (const p of parts) {
-            p.age += dt;
-            const t = Math.min(1, p.age / p.life);
-            const x = p.x0 + (p.tx - p.x0) * (1 - (1 - t) * (1 - t));
-            const y = p.y0 + (p.ty - p.y0) * (t * t);
-            revealFx.rect(Math.floor(x), Math.floor(y), 1, 1).fill(p.color);
-            if (t < 1) done = false;
+          for (const d of drops) {
+            if (!d.settled) {
+              allSettled = false;
+              d.vy += g * dt;
+              d.x += d.vx * dt;
+              d.y += d.vy * dt;
+              if (d.y >= d.ty) {
+                d.x += (d.tx - d.x) * 0.2;
+                d.y += (d.ty - d.y) * 0.2;
+                d.vx *= 0.6;
+                d.vy *= 0.6;
+                if (
+                  Math.abs(d.tx - d.x) < 0.1 &&
+                  Math.abs(d.ty - d.y) < 0.1 &&
+                  Math.abs(d.vx) < 0.1 &&
+                  Math.abs(d.vy) < 0.1
+                ) {
+                  d.x = d.tx;
+                  d.y = d.ty;
+                  d.settled = true;
+                }
+              }
+            }
+            revealFx.rect(Math.floor(d.x), Math.floor(d.y), 1, 1).fill(d.color);
           }
-          if (done) {
+          if (allSettled) {
             app.ticker.remove(step);
-            revealFx.visible = false;
-            revealFx.clear();
             resolve();
           }
         };
