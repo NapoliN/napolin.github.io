@@ -112,17 +112,29 @@ export default function PixelSplitLanding({
         const iHead = Math.floor((headX / W) * LCOLS);
         const jMid  = Math.floor((yPix  / H) * LROWS);
 
-        const path = lastHead ? rasterLine(lastHead.i, lastHead.j, iHead, jMid) : [{ i: iHead, j: jMid }];
-        for (const p of path) {
-          const count = 2 + ((Math.random()*2) | 0); // 2-3粒/セル
-          for (let k=0;k<count;k++){
-            const d = ldirs[(Math.random()*ldirs.length)|0];
-            const sp   = loaderSpeed   * (0.8 + Math.random()*0.6);
-            const life = loaderLifeBase* (0.8 + Math.random()*0.8);
-            loaderParticles.push({ x: p.i+0.5, y: p.j+0.5, vx: d.x*sp, vy: d.y*sp, age: 0, life });
+        // ヘッド位置が前フレームから更新されたときのみ粒子を生成
+        if (!lastHead || lastHead.i !== iHead || lastHead.j !== jMid) {
+          const path = lastHead
+            ? rasterLine(lastHead.i, lastHead.j, iHead, jMid)
+            : [{ i: iHead, j: jMid }];
+          for (const p of path) {
+            const count = 2 + ((Math.random() * 2) | 0); // 2-3粒/セル
+            for (let k = 0; k < count; k++) {
+              const d = ldirs[(Math.random() * ldirs.length) | 0];
+              const sp = loaderSpeed * (0.8 + Math.random() * 0.6);
+              const life = loaderLifeBase * (0.8 + Math.random() * 0.8);
+              loaderParticles.push({
+                x: p.i + 0.5,
+                y: p.j + 0.5,
+                vx: d.x * sp,
+                vy: d.y * sp,
+                age: 0,
+                life,
+              });
+            }
           }
+          lastHead = { i: iHead, j: jMid };
         }
-        lastHead = { i: iHead, j: jMid };
 
         const dt = app.ticker.deltaMS / 1000;
         const alive: typeof loaderParticles = [];
@@ -381,6 +393,7 @@ export default function PixelSplitLanding({
       {/* PRESS ANY BUTTON overlay */}
       {awaitingPress && (
         <div className="px-press-overlay">
+          <div className="px-title">Napolin's Lab</div>
           <div className="px-press-label">PRESS ANY BUTTON</div>
         </div>
       )}
