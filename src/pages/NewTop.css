@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
 :root { --px-bg: #0b0d10; }
 
 .px-root {
@@ -67,10 +69,21 @@
 .px-press-overlay {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
   z-index: 2;
   pointer-events: none;
+}
+
+.px-title {
+  pointer-events: none;
+  color: #e6e6e6;
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.05em;
 }
 .px-press-label {
   pointer-events: none;

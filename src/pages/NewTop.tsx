@@ -381,6 +381,7 @@ export default function PixelSplitLanding({
       {/* PRESS ANY BUTTON overlay */}
       {awaitingPress && (
         <div className="px-press-overlay">
+          <div className="px-title">Napolin's Lab</div>
           <div className="px-press-label">PRESS ANY BUTTON</div>
         </div>
       )}
