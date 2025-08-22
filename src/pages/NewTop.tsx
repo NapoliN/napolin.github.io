@@ -293,7 +293,7 @@ export default function PixelSplitLanding({
               explodeTitle(() => {
                 setAwaitingPress(false);
                   screenGrid.visible = true;
-                  (imgData ? startReveal() : Promise.resolve()).then(() => {
+                  startReveal().then(() => {
                     interactionEnabled = true;
                     setIsLoaded(true);
                   });
@@ -311,24 +311,14 @@ export default function PixelSplitLanding({
       });
 
       // ===== 画像のアルファに沿ったホバー判定＋左右スウェイ =====
-      let imgData: Uint8ClampedArray | null = null;
-      const res = (tex.source as { resource?: { source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement } }).resource;
-      const srcEl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | undefined = res?.source;
-      const texW = tex.source.width ?? 256;
-      const texH = tex.source.height ?? 256;
-      try {
-        if (srcEl) {
-          const off = document.createElement("canvas");
-          off.width = texW; off.height = texH;
-          const ictx = off.getContext("2d", { willReadFrequently: true })!;
-          ictx.imageSmoothingEnabled = false;
-          ictx.drawImage(srcEl, 0, 0, texW, texH);
-          imgData = ictx.getImageData(0, 0, texW, texH).data;
-        }
-      } catch { imgData = null; }
+      // texから画像データを取得
+      const texW = tex.width, texH = tex.height;
+      const imgData = app.renderer.extract.pixels(tex).pixels
 
       const startReveal = () => new Promise<void>((resolve) => {
+        console.log(imgData);
         const data = imgData!;
+        
         type Drop = { x:number; y:number; vx:number; vy:number; tx:number; ty:number; color:number; settled:boolean };
         const drops: Drop[] = [];
         for (let y = 0; y < texH; y++) {
