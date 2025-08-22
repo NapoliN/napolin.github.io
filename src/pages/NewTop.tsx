@@ -185,7 +185,8 @@ export default function PixelSplitLanding({
       const sprite = new Sprite(tex);
       sprite.anchor.set(0.5);
       app.stage.addChild(sprite);
-      sprite.visible = false;
+      // アニメ開始までは透明にしておく（ヒットテスト用に表示状態は維持）
+      sprite.alpha = 0;
 
       // グリッド（縦512/横256）
       const screenGrid = new Graphics();
@@ -197,6 +198,12 @@ export default function PixelSplitLanding({
       const loaderFx = new Graphics();
       loaderFx.eventMode = "none";
       app.stage.addChild(loaderFx);
+
+      // 画像形成用レイヤ
+      const revealFx = new Graphics();
+      revealFx.eventMode = "none";
+      revealFx.visible = false;
+      app.stage.addChild(revealFx);
 
       // ドロー用オーバーレイ
       const dotFx = new Graphics();
@@ -285,10 +292,11 @@ export default function PixelSplitLanding({
               if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer); onAnyPointer = null; }
               explodeTitle(() => {
                 setAwaitingPress(false);
-                screenGrid.visible = true;
-                sprite.visible = true;
-                interactionEnabled = true;
-                setIsLoaded(true);
+                  screenGrid.visible = true;
+                  startReveal().then(() => {
+                    interactionEnabled = true;
+                    setIsLoaded(true);
+                  });
               });
             };
             onAnyKey = () => reveal();
@@ -303,28 +311,82 @@ export default function PixelSplitLanding({
       });
 
       // ===== 画像のアルファに沿ったホバー判定＋左右スウェイ =====
-      let alphaData: Uint8ClampedArray | null = null;
-      const res = (tex.source as { resource?: { source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement } }).resource;
-      const srcEl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | undefined = res?.source;
-      const texW = tex.source.width ?? 256;
-      const texH = tex.source.height ?? 256;
-      try {
-        if (srcEl) {
-          const off = document.createElement("canvas");
-          off.width = texW; off.height = texH;
-          const ictx = off.getContext("2d", { willReadFrequently: true })!;
-          ictx.imageSmoothingEnabled = false;
-          ictx.drawImage(srcEl, 0, 0, texW, texH);
-          alphaData = ictx.getImageData(0, 0, texW, texH).data;
+      // texから画像データを取得
+      const texW = tex.width, texH = tex.height;
+      const imgData = app.renderer.extract.pixels(tex).pixels
+
+      const startReveal = () => new Promise<void>((resolve) => {
+        console.log(imgData);
+        const data = imgData!;
+        
+        type Drop = { x:number; y:number; vx:number; vy:number; tx:number; ty:number; color:number; settled:boolean };
+        const drops: Drop[] = [];
+        for (let y = 0; y < texH; y++) {
+          for (let x = 0; x < texW; x++) {
+            const idx = (y * texW + x) * 4;
+            const a = data[idx + 3];
+            if (a > 16) {
+              const color = (data[idx] << 16) | (data[idx + 1] << 8) | data[idx + 2];
+              const x0 = texW / 2 + (Math.random() - 0.5) * texW;
+              const y0 = -Math.random() * texH;
+              drops.push({
+                x: x0,
+                y: y0,
+                vx: (x - x0) / 2, // 2秒程度で横位置へ到達
+                vy: 0,
+                tx: x,
+                ty: y,
+                color,
+                settled: false,
+              });
+            }
+          }
         }
-      } catch { alphaData = null; }
+        revealFx.visible = true;
+        const g = texH * 0.75; // 重力加速度(px/s^2)
+        const step = () => {
+          const dt = app.ticker.deltaMS / 1000;
+          let allSettled = true;
+          revealFx.clear();
+          for (const d of drops) {
+            if (!d.settled) {
+              allSettled = false;
+              d.vy += g * dt;
+              d.x += d.vx * dt;
+              d.y += d.vy * dt;
+              if (d.y >= d.ty) {
+                d.x += (d.tx - d.x) * 0.2;
+                d.y += (d.ty - d.y) * 0.2;
+                d.vx *= 0.6;
+                d.vy *= 0.6;
+                if (
+                  Math.abs(d.tx - d.x) < 0.1 &&
+                  Math.abs(d.ty - d.y) < 0.1 &&
+                  Math.abs(d.vx) < 0.1 &&
+                  Math.abs(d.vy) < 0.1
+                ) {
+                  d.x = d.tx;
+                  d.y = d.ty;
+                  d.settled = true;
+                }
+              }
+            }
+            revealFx.rect(Math.floor(d.x), Math.floor(d.y), 1, 1).fill(d.color);
+          }
+          if (allSettled) {
+            app.ticker.remove(step);
+            resolve();
+          }
+        };
+        app.ticker.add(step);
+      });
 
       const alphaContains = (lx: number, ly: number) => {
         const ax = Math.floor(lx + texW * sprite.anchor.x);
         const ay = Math.floor(ly + texH * sprite.anchor.y);
         if (ax < 0 || ay < 0 || ax >= texW || ay >= texH) return false;
-        if (!alphaData) return true;
-        return alphaData[(ay * texW + ax) * 4 + 3] > 16;
+        if (!imgData) return true;
+        return imgData[(ay * texW + ax) * 4 + 3] > 16;
       };
 
       sprite.hitArea = { contains: alphaContains } as IHitArea;
@@ -471,10 +533,12 @@ export default function PixelSplitLanding({
         // 左半分に収まる最大の整数倍率
         const s = Math.max(1, Math.floor(Math.min(leftW / BASE, leftH / BASE)));
         sprite.scale.set(s);
+        revealFx.scale.set(s);
 
         baseX = Math.floor(leftW / 2);
         baseY = Math.floor(H / 2);
         sprite.position.set(baseX, baseY);
+        revealFx.position.set(baseX - texW * s * sprite.anchor.x, baseY - texH * s * sprite.anchor.y);
 
         drawScreenGrid512x256(screenGrid, W, H);
       };
