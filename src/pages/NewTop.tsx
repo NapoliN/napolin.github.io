@@ -292,11 +292,11 @@ export default function PixelSplitLanding({
               if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer); onAnyPointer = null; }
               explodeTitle(() => {
                 setAwaitingPress(false);
-                screenGrid.visible = true;
-                startReveal().then(() => {
-                  interactionEnabled = true;
-                  setIsLoaded(true);
-                });
+                  screenGrid.visible = true;
+                  (imgData ? startReveal() : Promise.resolve()).then(() => {
+                    interactionEnabled = true;
+                    setIsLoaded(true);
+                  });
               });
             };
             onAnyKey = () => reveal();
@@ -328,15 +328,15 @@ export default function PixelSplitLanding({
       } catch { imgData = null; }
 
       const startReveal = () => new Promise<void>((resolve) => {
-        if (!imgData) { resolve(); return; }
+        const data = imgData!;
         type Drop = { x:number; y:number; vx:number; vy:number; tx:number; ty:number; color:number; settled:boolean };
         const drops: Drop[] = [];
         for (let y = 0; y < texH; y++) {
           for (let x = 0; x < texW; x++) {
             const idx = (y * texW + x) * 4;
-            const a = imgData[idx + 3];
+            const a = data[idx + 3];
             if (a > 16) {
-              const color = (imgData[idx] << 16) | (imgData[idx + 1] << 8) | imgData[idx + 2];
+              const color = (data[idx] << 16) | (data[idx + 1] << 8) | data[idx + 2];
               const x0 = texW / 2 + (Math.random() - 0.5) * texW;
               const y0 = -Math.random() * texH;
               drops.push({
