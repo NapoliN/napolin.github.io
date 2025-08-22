@@ -44,7 +44,7 @@ const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
       })
     }
     convertSvg();
-  }, [])
+  }, [props.Markdown])
   return (
     
     <MathJaxContext config={config}>
