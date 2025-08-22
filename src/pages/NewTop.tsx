@@ -198,6 +198,12 @@ export default function PixelSplitLanding({
       loaderFx.eventMode = "none";
       app.stage.addChild(loaderFx);
 
+      // 画像形成用レイヤ
+      const revealFx = new Graphics();
+      revealFx.eventMode = "none";
+      revealFx.visible = false;
+      app.stage.addChild(revealFx);
+
       // ドロー用オーバーレイ
       const dotFx = new Graphics();
       dotFx.eventMode = "none";
@@ -286,9 +292,12 @@ export default function PixelSplitLanding({
               explodeTitle(() => {
                 setAwaitingPress(false);
                 screenGrid.visible = true;
-                sprite.visible = true;
-                interactionEnabled = true;
-                setIsLoaded(true);
+                startReveal().then(() => {
+                  sprite.visible = true;
+                  sprite.alpha = 0;
+                  interactionEnabled = true;
+                  setIsLoaded(true);
+                });
               });
             };
             onAnyKey = () => reveal();
@@ -303,7 +312,7 @@ export default function PixelSplitLanding({
       });
 
       // ===== 画像のアルファに沿ったホバー判定＋左右スウェイ =====
-      let alphaData: Uint8ClampedArray | null = null;
+      let imgData: Uint8ClampedArray | null = null;
       const res = (tex.source as { resource?: { source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement } }).resource;
       const srcEl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | undefined = res?.source;
       const texW = tex.source.width ?? 256;
@@ -315,16 +324,58 @@ export default function PixelSplitLanding({
           const ictx = off.getContext("2d", { willReadFrequently: true })!;
           ictx.imageSmoothingEnabled = false;
           ictx.drawImage(srcEl, 0, 0, texW, texH);
-          alphaData = ictx.getImageData(0, 0, texW, texH).data;
+          imgData = ictx.getImageData(0, 0, texW, texH).data;
         }
-      } catch { alphaData = null; }
+      } catch { imgData = null; }
+
+      const startReveal = () => new Promise<void>((resolve) => {
+        if (!imgData) { resolve(); return; }
+        const parts: { x0:number; y0:number; tx:number; ty:number; age:number; life:number; color:number }[] = [];
+        for (let y = 0; y < texH; y++) {
+          for (let x = 0; x < texW; x++) {
+            const idx = (y * texW + x) * 4;
+            const a = imgData[idx + 3];
+            if (a > 16) {
+              const color = (imgData[idx] << 16) | (imgData[idx + 1] << 8) | imgData[idx + 2];
+              parts.push({
+                x0: Math.random() * texW,
+                y0: -Math.random() * texH * 0.5,
+                tx: x,
+                ty: y,
+                age: 0,
+                life: 2000,
+                color,
+              });
+            }
+          }
+        }
+        revealFx.visible = true;
+        const step = () => {
+          revealFx.clear();
+          let done = true;
+          const dt = app.ticker.deltaMS;
+          for (const p of parts) {
+            p.age += dt;
+            const t = Math.min(1, p.age / p.life);
+            const x = p.x0 + (p.tx - p.x0) * (1 - (1 - t) * (1 - t));
+            const y = p.y0 + (p.ty - p.y0) * (t * t);
+            revealFx.rect(Math.floor(x), Math.floor(y), 1, 1).fill(p.color);
+            if (t < 1) done = false;
+          }
+          if (done) {
+            app.ticker.remove(step);
+            resolve();
+          }
+        };
+        app.ticker.add(step);
+      });
 
       const alphaContains = (lx: number, ly: number) => {
         const ax = Math.floor(lx + texW * sprite.anchor.x);
         const ay = Math.floor(ly + texH * sprite.anchor.y);
         if (ax < 0 || ay < 0 || ax >= texW || ay >= texH) return false;
-        if (!alphaData) return true;
-        return alphaData[(ay * texW + ax) * 4 + 3] > 16;
+        if (!imgData) return true;
+        return imgData[(ay * texW + ax) * 4 + 3] > 16;
       };
 
       sprite.hitArea = { contains: alphaContains } as IHitArea;
@@ -471,10 +522,12 @@ export default function PixelSplitLanding({
         // 左半分に収まる最大の整数倍率
         const s = Math.max(1, Math.floor(Math.min(leftW / BASE, leftH / BASE)));
         sprite.scale.set(s);
+        revealFx.scale.set(s);
 
         baseX = Math.floor(leftW / 2);
         baseY = Math.floor(H / 2);
         sprite.position.set(baseX, baseY);
+        revealFx.position.set(baseX - texW * s * sprite.anchor.x, baseY - texH * s * sprite.anchor.y);
 
         drawScreenGrid512x256(screenGrid, W, H);
       };
