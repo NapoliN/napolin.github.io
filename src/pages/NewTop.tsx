@@ -350,7 +350,7 @@ export default function PixelSplitLanding({
           s.width = 1;
           s.height = 1;
           dropPool.push(s);
-          revealFx.addChild(s);
+          revealFx.addParticle(s);
         }
         for (let i = 0; i < drops.length; i++) {
           const s = dropPool[i];
