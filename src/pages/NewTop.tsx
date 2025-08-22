@@ -200,7 +200,10 @@ export default function PixelSplitLanding({
       app.stage.addChild(loaderFx);
 
       // 画像形成用レイヤ
-      const revealFx = new ParticleContainer(undefined, { position: true, tint: true });
+      const revealFx = new ParticleContainer({
+        autoResize: true,
+        properties: { position: true, tint: true },
+      });
       revealFx.eventMode = "none";
       revealFx.visible = false;
       app.stage.addChild(revealFx);
