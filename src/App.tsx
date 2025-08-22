@@ -35,7 +35,7 @@ function App() {
     };
 
     loadMarkdowns();
-  }, [])
+  }, [pages])
   return (
     <Router>
       <ScrollTop />
