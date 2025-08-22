@@ -1,6 +1,6 @@
 // PixelSplitLanding.tsx  (PixiJS v8 + external CSS)
 import React, { useEffect, useRef, useState } from "react";
-import { Application, Assets, Sprite, Texture, TextureStyle, Graphics, ParticleContainer, type IHitArea } from "pixi.js";
+import { Application, Assets, Sprite, Texture, TextureStyle, Graphics, ParticleContainer, Particle, type IHitArea } from "pixi.js";
 import "./NewTop.css";
 
 type Props = {
@@ -207,7 +207,7 @@ export default function PixelSplitLanding({
       revealFx.eventMode = "none";
       revealFx.visible = false;
       app.stage.addChild(revealFx);
-      const dropPool: Sprite[] = [];
+      const dropPool: Particle[] = [];
 
       // ドロー用オーバーレイ
       const dotFx = new Graphics();
@@ -346,18 +346,18 @@ export default function PixelSplitLanding({
           }
         }
         while (dropPool.length < drops.length) {
-          const s = new Sprite(Texture.WHITE);
-          s.width = 1;
-          s.height = 1;
-          dropPool.push(s);
-          revealFx.addParticle(s);
+          const p = new Particle(Texture.WHITE);
+          p.width = 1;
+          p.height = 1;
+          dropPool.push(p);
+          revealFx.addParticle(p);
         }
         for (let i = 0; i < drops.length; i++) {
-          const s = dropPool[i];
+          const p = dropPool[i];
           const d = drops[i];
-          s.visible = true;
-          s.position.set(Math.floor(d.x), Math.floor(d.y));
-          s.tint = d.color;
+          p.visible = true;
+          p.position.set(Math.floor(d.x), Math.floor(d.y));
+          p.tint = d.color;
         }
         for (let i = drops.length; i < dropPool.length; i++) {
           dropPool[i].visible = false;
@@ -391,8 +391,8 @@ export default function PixelSplitLanding({
                 }
               }
             }
-            const s = dropPool[i];
-            s.position.set(Math.floor(d.x), Math.floor(d.y));
+            const p = dropPool[i];
+            p.position.set(Math.floor(d.x), Math.floor(d.y));
           }
           if (allSettled) {
             app.ticker.remove(step);
