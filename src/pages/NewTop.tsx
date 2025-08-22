@@ -9,13 +9,15 @@ type Props = {
   bg?: string;                     // 背景色（必要なら）
 };
 
-type DotParticle = {
+type TitleParticle = {
   x: number;
   y: number;
   vx: number;
   vy: number;
   age: number;
   life: number;
+  tx: number;
+  ty: number;
 };
 
 export default function PixelSplitLanding({
@@ -33,10 +35,9 @@ export default function PixelSplitLanding({
   const [isLoaded, setIsLoaded] = useState(false);
   const [awaitingPress, setAwaitingPress] = useState(false);
   const titleCanvasRef = useRef<HTMLCanvasElement>(null);
-  const titleParticlesRef = useRef<DotParticle[]>([]);
+  const titleParticlesRef = useRef<TitleParticle[]>([]);
   const explodeAnimRef = useRef<number | null>(null);
-  const revealAnimRef = useRef<number | null>(null);
-  const revealXRef = useRef(0);
+  const formAnimRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = titleCanvasRef.current;
@@ -45,14 +46,14 @@ export default function PixelSplitLanding({
 
     if (!awaitingPress) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (revealAnimRef.current) {
-        cancelAnimationFrame(revealAnimRef.current);
-        revealAnimRef.current = null;
+      if (formAnimRef.current) {
+        cancelAnimationFrame(formAnimRef.current);
+        formAnimRef.current = null;
       }
       return;
     }
 
-    const text = "Napolin's Lab";
+    const text = "NapoliN's Lab";
     const fontSize = 128;
     const off = document.createElement("canvas");
     const offCtx = off.getContext("2d")!;
@@ -66,42 +67,42 @@ export default function PixelSplitLanding({
     const data = offCtx.getImageData(0, 0, off.width, off.height).data;
     canvas.width = off.width;
     canvas.height = off.height;
-    const pts: DotParticle[] = [];
+
+    const targets: TitleParticle[] = [];
     const step = 4;
     for (let y = 0; y < off.height; y += step) {
       for (let x = 0; x < off.width; x += step) {
         if (data[(y * off.width + x) * 4 + 3] > 128) {
-          pts.push({ x, y, vx: 0, vy: 0, age: 0, life: 0 });
+          targets.push({ x: Math.random() * canvas.width, y: canvas.height / 2 + (Math.random() - 0.5) * 40, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, age: 0, life: 0, tx: x, ty: y });
         }
       }
     }
-    titleParticlesRef.current = pts;
+    titleParticlesRef.current = targets;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    revealXRef.current = 0;
-    const duration = 1500;
-    const t0 = performance.now();
     const stepDraw = () => {
-      const now = performance.now();
-      const progress = Math.min(1, (now - t0) / duration);
-      revealXRef.current = progress * canvas.width;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of pts) {
-        if (p.x <= revealXRef.current) {
-          ctx.fillStyle = "#e6e6e6";
-          ctx.fillRect(p.x, p.y, 3, 3);
-        }
+      let moving = false;
+      for (const p of targets) {
+        p.vx += (p.tx - p.x) * 0.02;
+        p.vy += (p.ty - p.y) * 0.02;
+        p.vx *= 0.9;
+        p.vy *= 0.9;
+        p.x += p.vx * 0.2;
+        p.y += p.vy * 0.2;
+        if (Math.abs(p.tx - p.x) > 0.5 || Math.abs(p.ty - p.y) > 0.5) moving = true;
+        ctx.fillStyle = "#e6e6e6";
+        ctx.fillRect(p.x, p.y, 3, 3);
       }
-      if (progress < 1) {
-        revealAnimRef.current = requestAnimationFrame(stepDraw);
+      if (moving) {
+        formAnimRef.current = requestAnimationFrame(stepDraw);
       }
     };
     stepDraw();
 
     return () => {
-      if (revealAnimRef.current) {
-        cancelAnimationFrame(revealAnimRef.current);
-        revealAnimRef.current = null;
+      if (formAnimRef.current) {
+        cancelAnimationFrame(formAnimRef.current);
+        formAnimRef.current = null;
       }
     };
   }, [awaitingPress]);
@@ -110,14 +111,11 @@ export default function PixelSplitLanding({
     const canvas = titleCanvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) { after(); return; }
-    if (revealAnimRef.current) {
-      cancelAnimationFrame(revealAnimRef.current);
-      revealAnimRef.current = null;
+    if (formAnimRef.current) {
+      cancelAnimationFrame(formAnimRef.current);
+      formAnimRef.current = null;
     }
-    const visible = titleParticlesRef.current.filter(
-      (p) => p.x <= revealXRef.current,
-    );
-    const parts = visible.map((p) => ({
+    const parts = titleParticlesRef.current.map((p) => ({
       ...p,
       vx: (Math.random() - 0.5) * 6,
       vy: (Math.random() - 0.5) * 6,
@@ -192,7 +190,7 @@ export default function PixelSplitLanding({
       // グリッド（縦512/横256）
       const screenGrid = new Graphics();
       screenGrid.eventMode = "none";
-      screenGrid.visible = false;
+      screenGrid.visible = true;
       app.stage.addChild(screenGrid);
 
       // Loading FX layer
