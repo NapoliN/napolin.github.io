@@ -276,10 +276,10 @@ export default function PixelSplitLanding({
         const cw = W / COLS, ch = H / ROWS;
         dotFx.clear();
 
-        const paintMS = 1000;       // 0-1000ms: 白塗り
+        const paintMS = 100;       // 0-1000ms: 白塗り
         const popDurBase = 220;     // 粒子寿命の基準（ms）
         const popDurMax  = popDurBase * 2.0;
-        const speedCells = 32;      // 粒子速度（セル/秒）
+        const speedCells = 128;      // 粒子速度（セル/秒）
 
         const alive: Burst[] = [];
         for (const b of bursts) {
@@ -435,5 +435,5 @@ function drawScreenGrid512x256(g: Graphics, W: number, H: number){
   g.clear();
   for(let i=0;i<=512;i++){ const x = (W * i) / 512; g.moveTo(x, 0).lineTo(x, H); }
   for(let j=0;j<=256;j++){ const y = (H * j) / 256; g.moveTo(0, y).lineTo(W, y); }
-  g.stroke({ color: 0xffffff, alpha: 0.5, width: 1, pixelLine: true });
+  g.stroke({ color: 0xffffff, alpha: 0.3, width: 1, pixelLine: true });
 }
