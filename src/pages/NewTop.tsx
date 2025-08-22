@@ -9,6 +9,15 @@ type Props = {
   bg?: string;                     // 背景色（必要なら）
 };
 
+type DotParticle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  age: number;
+  life: number;
+};
+
 export default function PixelSplitLanding({
   imageUrl = "shibuya_portfolio.png",
   links = [
@@ -23,6 +32,78 @@ export default function PixelSplitLanding({
   const resizeCleanupRef = useRef<(() => void) | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [awaitingPress, setAwaitingPress] = useState(false);
+  const titleCanvasRef = useRef<HTMLCanvasElement>(null);
+  const titleParticlesRef = useRef<DotParticle[]>([]);
+  const explodeAnimRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!awaitingPress) return;
+    const canvas = titleCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const text = "Napolin's Lab";
+    const fontSize = 48;
+    const off = document.createElement("canvas");
+    const offCtx = off.getContext("2d")!;
+    offCtx.font = `${fontSize}px 'DotGothic16'`;
+    const metrics = offCtx.measureText(text);
+    off.width = Math.ceil(metrics.width);
+    off.height = Math.ceil(fontSize * 1.2);
+    offCtx.font = `${fontSize}px 'DotGothic16'`;
+    offCtx.fillStyle = "#fff";
+    offCtx.fillText(text, 0, fontSize);
+    const data = offCtx.getImageData(0, 0, off.width, off.height).data;
+    canvas.width = off.width;
+    canvas.height = off.height;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const pts: DotParticle[] = [];
+    const step = 4;
+    for (let y = 0; y < off.height; y += step) {
+      for (let x = 0; x < off.width; x += step) {
+        if (data[(y * off.width + x) * 4 + 3] > 128) {
+          ctx.fillStyle = "#e6e6e6";
+          ctx.fillRect(x, y, 2, 2);
+          pts.push({ x, y, vx: 0, vy: 0, age: 0, life: 0 });
+        }
+      }
+    }
+    titleParticlesRef.current = pts;
+  }, [awaitingPress]);
+
+  const explodeTitle = (after: () => void) => {
+    const canvas = titleCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) { after(); return; }
+    const parts = titleParticlesRef.current.map((p) => ({
+      ...p,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      life: 60 + Math.random() * 30,
+      age: 0,
+    }));
+    titleParticlesRef.current = parts;
+    const step = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      for (const p of parts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.1;
+        p.age++;
+        if (p.age < p.life) {
+          alive = true;
+          ctx.fillStyle = "#e6e6e6";
+          ctx.fillRect(p.x, p.y, 2, 2);
+        }
+      }
+      if (alive) {
+        explodeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        after();
+      }
+    };
+    step();
+  };
 
   useEffect(() => {
     let disposed = false; // StrictMode二重実行対策
@@ -159,13 +240,15 @@ export default function PixelSplitLanding({
           if (!pressArmed) {
             pressArmed = true;
             const reveal = () => {
-              setAwaitingPress(false);
-              screenGrid.visible = true;
-              sprite.visible = true;
-              interactionEnabled = true;
-              setIsLoaded(true);
               if (onAnyKey) { window.removeEventListener("keydown", onAnyKey); onAnyKey = null; }
               if (onAnyPointer) { window.removeEventListener("pointerdown", onAnyPointer); onAnyPointer = null; }
+              explodeTitle(() => {
+                setAwaitingPress(false);
+                screenGrid.visible = true;
+                sprite.visible = true;
+                interactionEnabled = true;
+                setIsLoaded(true);
+              });
             };
             onAnyKey = () => reveal();
             onAnyPointer = () => reveal();
@@ -385,6 +468,10 @@ export default function PixelSplitLanding({
         if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
         app.destroy();
       }
+      if (explodeAnimRef.current) {
+        cancelAnimationFrame(explodeAnimRef.current);
+        explodeAnimRef.current = null;
+      }
     };
   }, [imageUrl]);
 
@@ -393,7 +480,7 @@ export default function PixelSplitLanding({
       {/* PRESS ANY BUTTON overlay */}
       {awaitingPress && (
         <div className="px-press-overlay">
-          <div className="px-title">Napolin's Lab</div>
+          <canvas ref={titleCanvasRef} className="px-title-canvas" />
           <div className="px-press-label">PRESS ANY BUTTON</div>
         </div>
       )}

@@ -78,12 +78,9 @@
   pointer-events: none;
 }
 
-.px-title {
+.px-title-canvas {
   pointer-events: none;
-  color: #e6e6e6;
-  font-family: 'DotGothic16', sans-serif;
-  font-size: 48px;
-  letter-spacing: 0.05em;
+  image-rendering: pixelated;
 }
 .px-press-label {
   pointer-events: none;
