@@ -294,7 +294,7 @@ export default function PixelSplitLanding({
                 screenGrid.visible = true;
                 startReveal().then(() => {
                   sprite.visible = true;
-                  sprite.alpha = 0;
+                  sprite.alpha = 1;
                   interactionEnabled = true;
                   setIsLoaded(true);
                 });
@@ -364,6 +364,8 @@ export default function PixelSplitLanding({
           }
           if (done) {
             app.ticker.remove(step);
+            revealFx.visible = false;
+            revealFx.clear();
             resolve();
           }
         };
