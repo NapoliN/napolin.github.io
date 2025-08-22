@@ -8,6 +8,7 @@ import MarkdownViewer from './pages/Markdown';
 import { useEffect, useState } from 'react';
 import NoteList from "./assets/notes.json"
 import { Note, NoteProps } from "./pages/Note"
+import NewTop from './pages/NewTop';
 
 function App() {
   const pages = NoteList
@@ -43,6 +44,7 @@ function App() {
         <Route path="/artworks" element={<Artworks />} />
         <Route path="/photos" element={<Photos />} />
         <Route path="/notes" element={<Note notes={mds} />} />
+        <Route path="/newtop" element={<NewTop />} />
         {
           mds.map((md, index) => {
             return <Route key={index} path={`/notes/${md.title}`} element={<MarkdownViewer Markdown={md.content} />} />
