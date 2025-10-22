@@ -1,6 +1,8 @@
 ---
 title: POODLE攻撃
-tags: Security, Network
+tags: 
+    - Security
+    - Network
 date: 2025/8/21
 ---
 

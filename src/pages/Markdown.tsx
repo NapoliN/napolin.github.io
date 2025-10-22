@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { MathJax3Config, MathJaxContext, MathJax } from 'better-react-mathjax';
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const config: MathJax3Config = {
   tex: {
@@ -15,15 +15,34 @@ const config: MathJax3Config = {
   }
 };
 
-const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
+const MarkdownViewer: React.FC = (props) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const path = queryParams.getAll("path");
+
+  const loadPage = async (path: string[]) : Promise<string> => {
+    return new Promise<string>(async (resolve) => {
+      let fullPath = "";
+      path.forEach((p) => {
+        fullPath += `${p}/`;
+      });
+      fullPath = fullPath.slice(0, -1); //最後の/を削除
+      console.log(fullPath);
+      const md: string = await import(`../notes/${fullPath}`).then((module) => {
+        return module.html;
+      }
+      );
+      resolve(md);
+    });
+  }
 
   const [html, sethtml] = useState("")
   useEffect(() => {
-    let result = props.Markdown
-    const convertSvg = async () => {
-      const matches = result.matchAll(/graphvizcontent\{\{(.*?)\}\}graphvizcontent/gs).toArray();
+
+    const convertSvg = async (html: string) => {
+      const matches = html.matchAll(/graphvizcontent\{\{(.*?)\}\}graphvizcontent/gs).toArray();
       if (matches.length === 0) {
-        sethtml(result);
+        sethtml(html);
         return;
       }
 
@@ -36,15 +55,17 @@ const MarkdownViewer: React.FC<{ Markdown: string }> = (props) => {
         );
       }).then((svgs) => {
         svgs.forEach((svg, idx) => {
-          result = result.replace(matches[idx][0], svg);
+          html = html.replace(matches[idx][0], svg);
         });
-        sethtml(result);
+        sethtml(html);
       }).finally(() => {
         Graphviz.unload();
       })
     }
-    convertSvg();
-  }, [props.Markdown])
+    loadPage(path).then((html) => {
+      convertSvg(html);
+    })
+  })
   return (
     
     <MathJaxContext config={config}>
