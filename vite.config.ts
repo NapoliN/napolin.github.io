@@ -39,6 +39,7 @@ containers.forEach((container) => {
   });
 });
 
+// graphvizを表示するためのプラグイン
 md.use(Plugin)
 
 const mdOption: MdOption = {

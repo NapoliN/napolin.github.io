@@ -6,9 +6,6 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollTop from './ScrollTop';
 import MarkdownViewer from './pages/Markdown';
 import { Note } from "./pages/Note"
-import { useEffect } from 'react';
-
-import NoteList from "./assets/notes.json"
 
 function App() {
 // mdファイルのメタ情報を再帰的に取得する
@@ -59,11 +56,6 @@ return new Promise(async (resolve) => {
         <Route path="/photos" element={<Photos />} />
         <Route path="/notes" element={<Note />} />
         <Route path="/articles" element={<MarkdownViewer />} />
-        {
-          //mds.map((md, index) => {
-          //  return <Route key={index} path={`/notes/${md.title}`} element={<MarkdownViewer Markdown={md.content} />} />
-          //})
-        }
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </Router>

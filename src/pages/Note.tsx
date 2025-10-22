@@ -17,9 +17,11 @@ interface NoteMeta {
     tags?: string[],
     date: string,
 }
-  
+
+// @ts-ignore
 const pages: DirectoryNode[] = NoteList
 
+// directoryNodeを再帰的に展開してDOMを生成する関数
 const expandDir = (currentPath: string[], dirTree: DirectoryNode[]) => {
     return dirTree.map((node) => {
         if (node.type === 'directory' && node.children) {
@@ -51,7 +53,7 @@ export const Note: React.FC<{}> = () => {
     return (
         <Container>
             日頃の知見をごった煮にして並べるスペース。
-            <h1>目次</h1>
+            <h1>記事一覧</h1>
             { expandDir([], pages) }
         </Container>
     )

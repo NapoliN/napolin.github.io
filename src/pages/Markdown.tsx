@@ -26,9 +26,9 @@ const MarkdownViewer: React.FC = (props) => {
       path.forEach((p) => {
         fullPath += `${p}/`;
       });
-      fullPath = fullPath.slice(0, -1); //最後の/を削除
+      fullPath = fullPath.slice(0, -4); //最後の.md/を削除
       console.log(fullPath);
-      const md: string = await import(`../notes/${fullPath}`).then((module) => {
+      const md: string = await import(`../notes/${fullPath}.md`).then((module) => {
         return module.html;
       }
       );
