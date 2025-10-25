@@ -1,6 +1,6 @@
 // PixelSplitLanding.tsx  (PixiJS v8 + external CSS)
 import React, { useEffect, useRef, useState } from "react";
-import { Application, Assets, Sprite, TextureStyle, Graphics, type IHitArea } from "pixi.js";
+import { Application, Assets, Sprite, Texture, TextureStyle, Graphics, ParticleContainer, Particle, type IHitArea } from "pixi.js";
 import "./NewTop.css";
 
 type Props = {
@@ -200,10 +200,14 @@ export default function PixelSplitLanding({
       app.stage.addChild(loaderFx);
 
       // 画像形成用レイヤ
-      const revealFx = new Graphics();
+      const revealFx = new ParticleContainer({
+        autoResize: true,
+        properties: { position: true, tint: true },
+      });
       revealFx.eventMode = "none";
       revealFx.visible = false;
       app.stage.addChild(revealFx);
+      const dropPool: Particle[] = [];
 
       // ドロー用オーバーレイ
       const dotFx = new Graphics();
@@ -316,9 +320,8 @@ export default function PixelSplitLanding({
       const imgData = app.renderer.extract.pixels(tex).pixels
 
       const startReveal = () => new Promise<void>((resolve) => {
-        console.log(imgData);
         const data = imgData!;
-        
+
         type Drop = { x:number; y:number; vx:number; vy:number; tx:number; ty:number; color:number; settled:boolean };
         const drops: Drop[] = [];
         for (let y = 0; y < texH; y++) {
@@ -342,13 +345,30 @@ export default function PixelSplitLanding({
             }
           }
         }
+        while (dropPool.length < drops.length) {
+          const p = new Particle(Texture.WHITE);
+          p.width = 1;
+          p.height = 1;
+          dropPool.push(p);
+          revealFx.addParticle(p);
+        }
+        for (let i = 0; i < drops.length; i++) {
+          const p = dropPool[i];
+          const d = drops[i];
+          p.visible = true;
+          p.position.set(Math.floor(d.x), Math.floor(d.y));
+          p.tint = d.color;
+        }
+        for (let i = drops.length; i < dropPool.length; i++) {
+          dropPool[i].visible = false;
+        }
         revealFx.visible = true;
         const g = texH * 0.75; // 重力加速度(px/s^2)
         const step = () => {
           const dt = app.ticker.deltaMS / 1000;
           let allSettled = true;
-          revealFx.clear();
-          for (const d of drops) {
+          for (let i = 0; i < drops.length; i++) {
+            const d = drops[i];
             if (!d.settled) {
               allSettled = false;
               d.vy += g * dt;
@@ -371,7 +391,8 @@ export default function PixelSplitLanding({
                 }
               }
             }
-            revealFx.rect(Math.floor(d.x), Math.floor(d.y), 1, 1).fill(d.color);
+            const p = dropPool[i];
+            p.position.set(Math.floor(d.x), Math.floor(d.y));
           }
           if (allSettled) {
             app.ticker.remove(step);
