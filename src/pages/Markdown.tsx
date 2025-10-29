@@ -5,7 +5,6 @@ import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import { Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import mermaid from "mermaid";
-import ReactDOM from "react-dom/client";
 
 const config: MathJax3Config = {
   tex: {
@@ -17,7 +16,7 @@ const config: MathJax3Config = {
   }
 };
 
-const MarkdownViewer: React.FC = (props) => {
+const MarkdownViewer: React.FC = (_) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const path = queryParams.getAll("path");
