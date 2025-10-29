@@ -26,8 +26,7 @@ return new Promise(async (resolve) => {
     const metas: NoteProps[] = [];
     for (const fileOrDir of filesOrDirs) {
     if (fileOrDir.type === 'file') {
-        
-        const md: NoteProps = await import(`./notes/${dirname}${fileOrDir.name}`).then((module) => {
+        const md: NoteProps = await import(/* @vite-ignore */`./notes/${dirname}${fileOrDir.name}`).then((module) => {
         return {
             title: module.attributes.title,
             tags: module.attributes.tags,

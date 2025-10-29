@@ -4,6 +4,8 @@ import { MathJax3Config, MathJaxContext, MathJax } from 'better-react-mathjax';
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import { Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import mermaid from "mermaid";
+import ReactDOM from "react-dom/client";
 
 const config: MathJax3Config = {
   tex: {
@@ -20,33 +22,35 @@ const MarkdownViewer: React.FC = (props) => {
   const queryParams = new URLSearchParams(location.search);
   const path = queryParams.getAll("path");
 
-  const loadPage = async (path: string[]) : Promise<string> => {
-    return new Promise<string>(async (resolve) => {
-      let fullPath = "";
-      path.forEach((p) => {
-        fullPath += `${p}/`;
-      });
-      fullPath = fullPath.slice(0, -4); //最後の.md/を削除
-      console.log(fullPath);
-      const md: string = await import(`../notes/${fullPath}.md`).then((module) => {
-        return module.html;
-      }
-      );
-      resolve(md);
-    });
-  }
+  const loadPage = async (path: string[]): Promise<string> => {
+    // パスを連結して "../notes/xxx/yyy.md" の形に変換
+    const fullPath = `../notes/${path.join("/").slice(0, -3)}.md`;
+
+    // すべてのMarkdownファイルを事前にマップ化
+    const modules = import.meta.glob("../notes/**/*.md");
+
+    // 対応するファイルが存在するかチェック
+    const importer = modules[fullPath];
+    if (!importer) {
+      throw new Error(`Markdown file not found: ${fullPath}`);
+    }
+
+    // 動的importを実行してモジュールを読み込み
+    const module = await importer();
+    // @ts-ignore
+    return module.html;
+  };
 
   const [html, sethtml] = useState("")
   useEffect(() => {
 
-    const convertSvg = async (html: string) => {
+    const convertSvg = async (html: string): Promise<string> => {
       const matches = html.matchAll(/graphvizcontent\{\{(.*?)\}\}graphvizcontent/gs).toArray();
       if (matches.length === 0) {
-        sethtml(html);
-        return;
+        return html;
       }
 
-      Graphviz.load().then((graphviz) => {
+      return Graphviz.load().then((graphviz) => {
         return Promise.all(
           matches.map(async (match) => {
             const content = match[1];
@@ -57,24 +61,40 @@ const MarkdownViewer: React.FC = (props) => {
         svgs.forEach((svg, idx) => {
           html = html.replace(matches[idx][0], svg);
         });
-        sethtml(html);
+        return html;
       }).finally(() => {
         Graphviz.unload();
-      })
+      });
     }
-    loadPage(path).then((html) => {
-      convertSvg(html);
-    })
-  })
+
+    loadPage(path)
+      .then(async (_html) => convertSvg(_html))
+      .then((_html) => {
+        sethtml(_html);
+      });
+  }, [html])
+
   return (
-    
+
     <MathJaxContext config={config}>
       <Link to="../notes"><Button variant="primary">目次へ戻る</Button></Link>
       <MathJax>
-      <div className="markdown-top">
-        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }}>
+        <div className="markdown-top">
+          <div className="markdown-body"
+            dangerouslySetInnerHTML={{ __html: html }}
+            // mermaidの描画
+            ref={(el) => {
+              if (!el) return;
+              const mermaidDivs = el.getElementsByClassName("mermaid");
+              Array.from(mermaidDivs).map((div, _) => {
+                // @ts-ignore
+                mermaid.init({}, div);
+              })
+
+            }}
+          >
+          </div>
         </div>
-      </div>
       </MathJax>
 
     </MathJaxContext>

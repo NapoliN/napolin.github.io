@@ -27,7 +27,7 @@ TLS1.0にまで存在した脆弱性を利用した攻撃。
 ### ブロック暗号
 ブロック暗号では、平文を特定の長さに区切って暗号化する。
 
-:::dot
+::: dot
 digraph G {
   rankdir=TB;
   graph [nodesep=1.0, ranksep=0.6];

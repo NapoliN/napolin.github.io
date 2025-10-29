@@ -4,7 +4,8 @@ import { plugin as markdown, PluginOptions as MdOption, Mode as MdMode } from "v
 import Shiki from '@shikijs/markdown-it'
 import MarkdownIt from 'markdown-it'
 import MarkdownItContainer from 'markdown-it-container'
-import { Plugin } from "./md-graphviz"
+import { Plugin as GraphvizPlugin } from "./md-graphviz"
+import { Plugin as MermaidPlugin } from "./md-mermaid"
 
 const md = MarkdownIt()
 
@@ -40,7 +41,9 @@ containers.forEach((container) => {
 });
 
 // graphvizを表示するためのプラグイン
-md.use(Plugin)
+md.use(GraphvizPlugin);
+// mermaidを表示するためのプラグイン
+md.use(MermaidPlugin);
 
 const mdOption: MdOption = {
   mode: [MdMode.HTML],
